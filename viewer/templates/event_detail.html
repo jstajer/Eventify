@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ event.title }}</title>
+</head>
+<body>
+    <h1>{{ event.title }}</h1>
+    <p>{{ event.description }}</p>
+    <p>{{ event.start_date }} - {{ event.end_date }}</p>
+    <p>Type: {{ event.type }}</p>
+    <p>Price: {{ event.price }}</p>
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.content }} ({{ comment.user }})</li>
+        {% endfor %}
+    </ul>
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="comment_content"></textarea>
+        <button type="submit">Add Comment</button>
+    </form>
+    <h2>Registrations</h2>
+    <ul>
+        {% for registration in registrations %}
+            <li>{{ registration.user }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'register_for_event' event.id %}">Register for this event</a>
+</body>
+</html>
