@@ -1,31 +1,74 @@
 <!DOCTYPE html>
-<html>
+
+{% load static %}
+
+<html lang="en">
 <head>
-    <title>{{ event.title }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Detail</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'viewer/style.css' %}"> <!-- Odkaz na tvůj CSS soubor -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>{{ event.title }}</h1>
-    <p>{{ event.description }}</p>
-    <p>{{ event.start_date }} - {{ event.end_date }}</p>
-    <p>Type: {{ event.type }}</p>
-    <p>Price: {{ event.price }}</p>
-    <h2>Comments</h2>
-    <ul>
-        {% for comment in comments %}
-            <li>{{ comment.content }} ({{ comment.user }})</li>
-        {% endfor %}
-    </ul>
-    <form method="post">
-        {% csrf_token %}
-        <textarea name="comment_content"></textarea>
-        <button type="submit">Add Comment</button>
-    </form>
-    <h2>Registrations</h2>
-    <ul>
-        {% for registration in registrations %}
-            <li>{{ registration.user }}</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'register_for_event' event.id %}">Register for this event</a>
+    <div class="container mt-5">
+        <h1>{{ event.title }}</h1>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <p><strong>Start Date:</strong> {{ event.start_date }}</p>
+        <p><strong>End Date:</strong> {{ event.end_date }}</p>
+        <p><strong>Description:</strong> {{ event.description }}</p>
+        <p><strong>Type:</strong> {{ event.type }}</p>
+        <p><strong>Price:</strong> {{ event.price }}</p>
+
+        <h2>Comments</h2>
+        <ul>
+            {% for comment in comments %}
+                <li>{{ comment.content }} - <em>{{ comment.user.username }}</em></li>
+            {% empty %}
+                <li>No comments yet.</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Add a Comment</h3>
+        <form method="post">
+            {% csrf_token %}
+            <textarea name="comment_content" rows="4"></textarea><br>
+            <button type="submit" class="btn btn-primary">Add Comment</button>
+        </form>
+
+        <h2>Registrations</h2>
+        <ul>
+            {% for registration in registrations %}
+                <li>{{ registration.user.username }}</li>
+            {% empty %}
+                <li>No registrations yet.</li>
+            {% endfor %}
+        </ul>
+
+        {% if user.is_authenticated %}
+            {% if user in event.registrations.all %}
+                <p>You are already registered for this event.</p>
+            {% else %}
+                <form method="post" action="{% url 'register_for_event' event.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Register for Event</button>
+                </form>
+            {% endif %}
+        {% else %}
+            <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to register for this event.</p>
+        {% endif %}
+
+        <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>
+    </div>
 </body>
 </html>
