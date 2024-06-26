@@ -1,102 +1,28 @@
 <!DOCTYPE html>
-<html lang="cs">
+
+{% load static %}
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Domů</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .login-container {
-            background-color: #4CAF50;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            margin: 20px auto;
-        }
-
-        .login-container h2 {
-            color: #800080; /* Fialová barva */
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .login-container label {
-            color: #333;
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-        }
-
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 25px;
-            box-sizing: border-box;
-        }
-
-        .login-container input[type="submit"] {
-            background-color: #800080; /* Fialová barva */
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 25px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-        }
-
-        .login-container input[type="submit"]:hover {
-            background-color: #731873; /* Tmavší fialová barva */
-        }
-
-        .login-container .register-link {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .login-container .register-link a {
-            color: #800080; /* Fialová barva */
-            text-decoration: none;
-        }
-
-        .login-container .register-link a:hover {
-            text-decoration: underline;
-        }
-
-        .event-list {
-            margin-top: 50px;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Eventify</title>
+    <link rel="stylesheet" href="{% static 'viewer/style.css' %}"> <!-- Odkaz na tvoje CSS. -->
+    <!-- Bootstrap a další odkazy na skripty zůstanou zachovány. -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Přihlášení</h2>
-        <form action="/login" method="post">
-            <label for="username">Uživatelské jméno</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="password">Heslo</label>
-            <input type="password" id="password" name="password" required>
-
-            <input type="submit" value="Přihlásit se">
-        </form>
-        <div class="register-link">
-            <p>Nemáte účet? <a href="/register">Zaregistrujte se</a></p>
-        </div>
-    </div>
-
-    <div class="event-list">
-        <h1>EVENT</h1>
+    <div class="container mt-5">
+        <h1>Events</h1>
         <ul>
             {% for event in events %}
                 <li>
@@ -105,7 +31,9 @@
                 </li>
             {% endfor %}
         </ul>
-        <a href="{% url 'create_event' %}">Create Event</a>
+        <a href="{% url 'create_event' %}" class="btn btn-primary">Create Event</a>
     </div>
+
+ {% include 'footer.html' %}
 </body>
 </html>
