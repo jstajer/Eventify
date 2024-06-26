@@ -2,17 +2,13 @@ from django.shortcuts import render
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-
-from .forms import EventForm
 from .models import Event, Comment, Registration
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-
 def home(request):
-    events = Event.objects.all() #filter(start_date__gte=timezone.now()).order_by('start_date')
+    events = Event.objects.filter(start_date__gte=timezone.now()).order_by('start_date')
     return render(request, 'home.html', {'events': events})
-
 
 @login_required
 def event_detail(request, event_id):
@@ -29,18 +25,27 @@ def event_detail(request, event_id):
         'registrations': registrations,
     })
 
-
 @login_required
 def create_event(request):
     if request.method == 'POST':
-        form = EventForm(request.POST)
-        if form.is_valid():
-            form.save()
+        title = request.POST.get('title')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        description = request.POST.get('description')
+        event_type = request.POST.get('type')
+        price = request.POST.get('price')
+        if title and start_date and end_date and description:
+            Event.objects.create(
+                title=title,
+                start_date=start_date,
+                end_date=end_date,
+                description=description,
+                created_by=request.user,
+                type=event_type,
+                price=price
+            )
             return redirect('home')
-    else:
-        form = EventForm()
-    return render(request, 'viewer/create_event.html', {'form': form})
-
+    return render(request, 'viewer/create_event.html')
 
 @login_required
 def register_for_event(request, event_id):
