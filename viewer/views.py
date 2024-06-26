@@ -8,9 +8,11 @@ from .models import Event, Comment, Registration
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+
 def home(request):
-    events = Event.objects.filter(start_date__gte=timezone.now()).order_by('start_date')
+    events = Event.objects.all() #filter(start_date__gte=timezone.now()).order_by('start_date')
     return render(request, 'home.html', {'events': events})
+
 
 @login_required
 def event_detail(request, event_id):
@@ -27,6 +29,7 @@ def event_detail(request, event_id):
         'registrations': registrations,
     })
 
+
 @login_required
 def create_event(request):
     if request.method == 'POST':
@@ -37,6 +40,7 @@ def create_event(request):
     else:
         form = EventForm()
     return render(request, 'viewer/create_event.html', {'form': form})
+
 
 @login_required
 def register_for_event(request, event_id):
