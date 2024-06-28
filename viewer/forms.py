@@ -1,9 +1,13 @@
 # viewer/forms.py
+
 from django import forms
 from .models import Event
+from .constants import REGION_CHOICES
 
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['title', 'start_date', 'end_date', 'description', 'type', 'price', 'location', 'district']
-
+        fields = '__all__'
+        widgets = {
+            'district': forms.Select(choices=REGION_CHOICES),
+        }
