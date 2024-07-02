@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ contact.name }}</h2>
+<p><a href="tel:{{ contact.phone }}"><i class="fas fa-phone"></i> {{ contact.phone }}</a></p>
+<p><a href="mailto:{{ contact.email }}"><i class="fas fa-envelope"></i> {{ contact.email }}</a></p>
+<p>
+    {% if contact.instagram %}
+        <a href="{{ contact.instagram }}" target="_blank" class="mr-2">
+            <i class="fab fa-instagram"></i>
+        </a>
+    {% endif %}
+    {% if contact.facebook %}
+        <a href="{{ contact.facebook }}" target="_blank" class="mr-2">
+            <i class="fab fa-facebook"></i>
+        </a>
+    {% endif %}
+    {% if contact.linkedin %}
+        <a href="{{ contact.linkedin }}" target="_blank">
+            <i class="fab fa-linkedin"></i>
+        </a>
+    {% endif %}
+</p>
+{% endblock %}
