@@ -1,15 +1,16 @@
-<!DOCTYPE html>
+<!-- viewer/templates/home.html -->
 
+<!DOCTYPE html>
 {% load static %}
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Eventify</title>
-    <link rel="stylesheet" href="{% static 'viewer/style.css' %}"> <!-- Odkaz na tvoje CSS. -->
-    <!-- Bootstrap a další odkazy na skripty zůstanou zachovány. -->
+    <title>Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'viewer/style.css' %}"> <!-- Your custom CSS file -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -22,18 +23,49 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Events</h1>
-        <ul>
+        <h1>Home Page</h1>
+
+        <!-- Search Form -->
+        <form action="{% url 'search_events' %}" method="get" class="form-inline mb-3">
+            <div class="form-group mr-2">
+                <input type="text" class="form-control" name="search_query" placeholder="Search events">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <!-- Dropdown for Event Filters -->
+        <div class="dropdown mb-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="eventFilterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Event Filter
+            </button>
+            <div class="dropdown-menu" aria-labelledby="eventFilterDropdown">
+                <a class="dropdown-item" href="{% url 'home' %}">All Events</a>
+                <a class="dropdown-item" href="{% url 'filtered_events' 'past' %}">Past Events</a>
+                <a class="dropdown-item" href="{% url 'filtered_events' 'ongoing' %}">Ongoing Events</a>
+                <a class="dropdown-item" href="{% url 'filtered_events' 'future' %}">Future Events</a>
+            </div>
+        </div>
+
+        <!-- List of Events -->
+        <div class="row">
             {% for event in events %}
-                <li>
-                    <a href="{% url 'event_detail' event.id %}">{{ event.title }}</a>
-                    ({{ event.start_date }} - {{ event.end_date }})
-                </li>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="card-text"><strong>Start Date:</strong> {{ event.start_date }}</p>
+                        <p class="card-text"><strong>End Date:</strong> {{ event.end_date }}</p>
+                        <p class="card-text">{{ event.description | truncatechars:50 }}</p>
+                        <a href="{% url 'event_detail' event.id %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>No events available.</p>
             {% endfor %}
-        </ul>
-        <a href="{% url 'create_event' %}" class="btn btn-primary">Create Event</a>
+        </div>
     </div>
 
- {% include 'footer.html' %}
+    {% include 'footer.html' %}
 </body>
 </html>
