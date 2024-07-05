@@ -35,4 +35,3 @@ class Registration(models.Model):
     def __str__(self):
         return f'{self.user} registered for {self.event}'
 
-

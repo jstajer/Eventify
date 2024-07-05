@@ -8,7 +8,7 @@
     <title>Event Detail</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'viewer/style.css' %}"> <!-- Odkaz na tvůj CSS soubor -->
+    <link rel="stylesheet" href="{% static 'viewer/style.css' %}">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -23,12 +23,12 @@
     <div class="container mt-5">
         <h1>{{ event.title }}</h1>
         <p><strong>Location:</strong> {{ event.location }}</p>
-        <p><strong>District:</strong> {{ event.district }}</p>
         <p><strong>Start Date:</strong> {{ event.start_date }}</p>
         <p><strong>End Date:</strong> {{ event.end_date }}</p>
         <p><strong>Description:</strong> {{ event.description }}</p>
         <p><strong>Type:</strong> {{ event.type }}</p>
         <p><strong>Price:</strong> {{ event.price }}</p>
+        <p><strong>Region:</strong> {{ event.get_region_display }}</p> <!-- Použijte get_region_display -->
 
         <h2>Comments</h2>
         <ul>
