@@ -1,19 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinLengthValidator
 
-from django.db import models
-from django.contrib.auth.models import User
+from viewer.constants import REGION_CHOICES
 
 class Event(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(
+        max_length=100,
+        validators=[MinLengthValidator(20)]  # Opraveno: použití validátoru pro minimální délku
+    )
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     description = models.TextField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='events')
     type = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    location = models.URLField(max_length=200, null=True, blank=True)
-    district = models.CharField(max_length=50, null=True, blank=True)
+    location = models.CharField(max_length=200, null=True, blank=True)
+    region = models.CharField(max_length=40, choices=REGION_CHOICES, default='')
 
     def __str__(self):
         return self.title
@@ -34,4 +37,3 @@ class Registration(models.Model):
 
     def __str__(self):
         return f'{self.user} registered for {self.event}'
-

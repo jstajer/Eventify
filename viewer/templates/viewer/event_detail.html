@@ -30,6 +30,10 @@
         <p><strong>Price:</strong> {{ event.price }}</p>
         <p><strong>Region:</strong> {{ event.get_region_display }}</p> <!-- Použijte get_region_display -->
 
+        {% if user.is_authenticated and user.is_superuser %}
+            <a href="{% url 'edit_event' event.id %}" class="btn btn-warning" style="background-color: yellow;">Edit Event</a>
+        {% endif %}
+
         <h2>Comments</h2>
         <ul>
             {% for comment in comments %}
