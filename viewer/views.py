@@ -20,9 +20,13 @@ def home(request):
 
 def search_events(request):
     query = request.GET.get('q')
-    # Filtrování událostí podle zadané fráze v názvu
-    events = Event.objects.filter(title__icontains=query)
-    return render(request, 'search_results.html', {'events': events, 'query': query})
+    if query:
+        events = Event.objects.filter(title__icontains=query)
+    else:
+        events = Event.objects.all()
+    return render(request, 'home.html', {'events': events})
+
+
 
 
 
