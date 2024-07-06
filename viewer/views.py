@@ -129,9 +129,9 @@ def signup(request):
 
 
 @login_required
-@user_passes_test(lambda u: u.is_superuser)
 def edit_event(request, event_id):
-    event = get_object_or_404(Event, pk=event_id)
+    event = get_object_or_404(Event, id=event_id)
+
     if request.method == 'POST':
         form = EventForm(request.POST, instance=event)
         if form.is_valid():
@@ -139,4 +139,6 @@ def edit_event(request, event_id):
             return redirect('event_detail', event_id=event.id)
     else:
         form = EventForm(instance=event)
+
     return render(request, 'viewer/edit_event.html', {'form': form, 'event': event})
+

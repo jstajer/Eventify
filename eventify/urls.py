@@ -16,6 +16,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('search/', views.search_events, name='search_events'),
     path('', HomeListView.as_view(), name='home'),
-    path('signup/', signup, name='signup'),  # Přidáme URL pro registraci
+    path('signup/', signup, name='signup'),
     path('events/<str:filter_type>/', filtered_events, name='filtered_events'),
 ]
