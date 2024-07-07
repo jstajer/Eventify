@@ -1,4 +1,3 @@
-# viewer/constants.py
 
 REGION_CHOICES = [
     ('JM', 'Jihomoravský'),
