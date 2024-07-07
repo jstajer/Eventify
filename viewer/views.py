@@ -42,6 +42,7 @@ def event_detail(request, event_id):
         'event': event,
         'comments': comments,
         'registrations': registrations,
+        'is_edit': False,
     })
 
 
@@ -150,5 +151,9 @@ def edit_event(request, event_id):
     else:
         form = EventForm(instance=event)
 
-    return render(request, 'viewer/edit_event.html', {'form': form, 'event': event})
+    return render(request, 'viewer/event_detail.html', {
+        'form': form,
+        'event': event,
+        'is_edit': True,
+    })
 

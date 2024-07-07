@@ -30,46 +30,54 @@
         <p><strong>Price:</strong> {{ event.price }}</p>
         <p><strong>Region:</strong> {{ event.get_region_display }}</p> <!-- Použijte get_region_display -->
 
-        {% if user.is_authenticated and user.is_superuser %}
-            <a href="{% url 'edit_event' event.id %}" class="btn btn-warning" style="background-color: yellow;">Edit Event</a>
-        {% endif %}
-
-        <h2>Comments</h2>
-        <ul>
-            {% for comment in comments %}
-                <li>{{ comment.content }} - <em>{{ comment.user.username }}</em></li>
-            {% empty %}
-                <li>No comments yet.</li>
-            {% endfor %}
-        </ul>
-
-        <h3>Add a Comment</h3>
-        <form method="post">
-            {% csrf_token %}
-            <textarea name="comment_content" rows="4"></textarea><br>
-            <button type="submit" class="btn btn-primary">Add Comment</button>
-        </form>
-
-        <h2>Registrations</h2>
-        <ul>
-            {% for registration in registrations %}
-                <li>{{ registration.user.username }}</li>
-            {% empty %}
-                <li>No registrations yet.</li>
-            {% endfor %}
-        </ul>
-
-        {% if user.is_authenticated %}
-            {% if user in event.registrations.all %}
-                <p>You are already registered for this event.</p>
-            {% else %}
-                <form method="post" action="{% url 'register_for_event' event.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary">Register for Event</button>
-                </form>
-            {% endif %}
+        {% if is_edit %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </form>
         {% else %}
-            <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to register for this event.</p>
+            {% if user.is_authenticated and user.is_superuser %}
+                <a href="{% url 'edit_event' event.id %}" class="btn btn-warning" style="background-color: yellow;">Edit Event</a>
+            {% endif %}
+
+            <h2>Comments</h2>
+            <ul>
+                {% for comment in comments %}
+                    <li>{{ comment.content }} - <em>{{ comment.user.username }}</em></li>
+                {% empty %}
+                    <li>No comments yet.</li>
+                {% endfor %}
+            </ul>
+
+            <h3>Add a Comment</h3>
+            <form method="post">
+                {% csrf_token %}
+                <textarea name="comment_content" rows="4"></textarea><br>
+                <button type="submit" class="btn btn-primary">Add Comment</button>
+            </form>
+
+            <h2>Registrations</h2>
+            <ul>
+                {% for registration in registrations %}
+                    <li>{{ registration.user.username }}</li>
+                {% empty %}
+                    <li>No registrations yet.</li>
+                {% endfor %}
+            </ul>
+
+            {% if user.is_authenticated %}
+                {% if user in event.registrations.all %}
+                    <p>You are already registered for this event.</p>
+                {% else %}
+                    <form method="post" action="{% url 'register_for_event' event.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Register for Event</button>
+                    </form>
+                {% endif %}
+            {% else %}
+                <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to register for this event.</p>
+            {% endif %}
         {% endif %}
 
         <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>

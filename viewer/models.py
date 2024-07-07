@@ -7,7 +7,6 @@ from viewer.constants import REGION_CHOICES
 class Event(models.Model):
     title = models.CharField(
         max_length=100,
-        validators=[MinLengthValidator(20)]  # Opraveno: použití validátoru pro minimální délku
     )
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
