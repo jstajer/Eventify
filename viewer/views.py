@@ -90,6 +90,12 @@ def filtered_events(request, filter_type):
     return render(request, 'home.html', context)
 
 
+# Přidáno: Funkce pro filtrování událostí podle regionu
+def region_events(request, region):
+    events = Event.objects.filter(region__iexact=region)
+    return render(request, 'home.html', {'events': events})
+
+
 def contact(request):
     contacts = [
         {'id': 1, 'name': 'Tomáš Král', 'phone': '731 311 943', 'email': 'kraltomas93@seznam.cz', 'instagram': 'https://instagram.com/tomas.kral', 'facebook': 'https://www.facebook.com/tomas.kral.397/', 'linkedin': 'https://www.linkedin.com/in/tom%C3%A1%C5%A1-kr%C3%A1l-a29451b4/'},

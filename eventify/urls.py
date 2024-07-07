@@ -11,6 +11,7 @@ urlpatterns = [
     path('event/<int:event_id>/register/', register_for_event, name='register_for_event'),
     path('event/<int:event_id>/edit/', edit_event, name='edit_event'),
     path('create/', create_event, name='create_event'),
+    path('region/<str:region>/', views.region_events, name='region_events'),
     path('contact/', contact, name='contact'),
     path('contact/<int:id>/', contact_detail, name='contact_detail'),
     path('accounts/', include('django.contrib.auth.urls')),
