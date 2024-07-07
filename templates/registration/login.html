@@ -1,11 +1,14 @@
-{% extends "base.html" %}
+{% extends "viewer/base.html" %}
+
+{% block title %}Login{% endblock %}
 
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    <table>{{ form }}</table>
-    {% comment %}{{ form.as_p }}{% endcomment %}
-    {% comment %}<ul>{{ form.as_ul }}</ul>{% endcomment %}
-    <input id="id_submit" type="submit" value="Submit" class="btn btn-primary">
-</form>
+<div class="container mt-5">
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
 {% endblock %}

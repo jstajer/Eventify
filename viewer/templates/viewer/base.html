@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 {% load static %}
-<html {% if LANGUAGE_CODE %}lang="{{ LANGUAGE_CODE }}" {% else %} lang="EN" {% endif %}>
-
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Eventify</title>
+    <title>{% block title %}Eventify{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'viewer/style.css' %}"> <!-- Your custom CSS file -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -18,20 +18,66 @@
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
             crossorigin="anonymous"></script>
 </head>
-
 <body>
+    <!-- Přidáno: Horní lišta s odkazy na Home, Contact a Region -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'home' %}">Eventify</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="regionDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Region
+                    </a>
+                    <!-- Přidáno: Dropdown menu pro regiony s možností scrollování -->
+                    <div class="dropdown-menu region-dropdown" aria-labelledby="regionDropdown">
+                        <a class="dropdown-item" href="{% url 'region_events' 'praha' %}">Praha</a>
+                        <a class="dropdown-item" href="{% url 'region_events' 'stredocesky' %}">Středočeský</a>
+                        <a class="dropdown-item" href="{% url 'region_events' 'jihocesky' %}">Jihočeský</a>
+                        <a class="dropdown-item" href="{% url 'region_events' 'plzensky' %}">Plzeňský</a>
+                        <a class="dropdown-item" href="{% url 'region_events' 'karlovarsky' %}">Karlovarský</a>
+                        <a class="dropdown-item" href="{% url 'region_events' 'ustecky' %}">Ústecký</a>
+                        <a class="dropdown-item" href="{% url 'region_events' 'liberecky' %}">Liberecký</a>
+                        <a class="dropdown-item" href="{% url 'region_events' 'kralovehradecky' %}">Královéhradecký</a>
+                        <a class="dropdown-item" href="{% url 'region_events' 'pardubicky' %}">Pardubický</a>
+                        <a class="dropdown-item" href="{% url 'region_events' 'vysocina' %}">Vysočina</a>
+                        <a class="dropdown-item" href="{% url 'region_events' 'jihomoravsky' %}">Jihomoravský</a>
+                        <a class="dropdown-item" href="{% url 'region_events' 'olomoucky' %}">Olomoucký</a>
+                        <a class="dropdown-item" href="{% url 'region_events' 'zlinsky' %}">Zlínský</a>
+                        <a class="dropdown-item" href="{% url 'region_events' 'moravskoslezsky' %}">Moravskoslezský</a>
+                    </div>
+                    <!-- Konec přidaného kódu -->
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
 
-{% if not view.is_popup %}
-    {% include "nav.html" %}
-{% endif %}
-
-<div class="container">
-    <div class="jumbotron">
+    <div class="container mt-5">
         {% block content %}{% endblock %}
     </div>
-</div>
 
-
+    {% include 'footer.html' %}
 </body>
-
 </html>
