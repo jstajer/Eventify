@@ -1,3 +1,4 @@
+from django.contrib.auth.views import LogoutView
 from django.urls import path, include
 from viewer import views
 from django.contrib import admin
@@ -16,4 +17,5 @@ urlpatterns = [
     path('search/', views.search_events, name='search_events'),
     path('signup/', views.signup, name='signup'),
     path('events/<str:filter_type>/', views.filtered_events, name='filtered_events'),
+    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
 ]

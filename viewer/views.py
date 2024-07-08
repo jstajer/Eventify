@@ -1,31 +1,35 @@
-from django.shortcuts import render
-
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login as auth_login
 from .forms import EventForm
-from .models import Event, Comment, Registration
-from django.contrib.auth.models import User
+from .models import Comment, Registration, Event
 from django.utils import timezone
 from django.shortcuts import render
 from django.views.generic import ListView
-from .models import Event
-
 
 def home(request):
     events = Event.objects.all() #filter(start_date__gte=timezone.now()).order_by('start_date')
     return render(request, 'home.html', {'events': events})
 
+def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            auth_login(request, user)
+            return redirect('home')  # přesměrování na domovskou stránku
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
 
 def search_events(request):
     query = request.GET.get('q')
     if query:
-        events = Event.objects.filter(title__icontains=query)
+        events = Event.objects.filter(title__icontains(query))
     else:
         events = Event.objects.all()
     return render(request, 'home.html', {'events': events})
-
 
 def event_detail(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
@@ -42,7 +46,6 @@ def event_detail(request, event_id):
         'is_edit': False,
     })
 
-
 @login_required
 def create_event(request):
     if request.method == 'POST':
@@ -54,13 +57,11 @@ def create_event(request):
         form = EventForm()
     return render(request, 'viewer/create_event.html', {'form': form})
 
-
 @login_required
 def register_for_event(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
     Registration.objects.get_or_create(user=request.user, event=event)
     return redirect('event_detail', event_id=event_id)
-
 
 class HomeListView(ListView):
     model = Event
@@ -69,10 +70,8 @@ class HomeListView(ListView):
     ordering = ['start_date']
     paginate_by = 10
 
-
 def filtered_events(request, filter_type):
     today = timezone.now().date()
-
     if filter_type == 'past':
         events = Event.objects.filter(end_date__lt=today).order_by('-start_date')
     elif filter_type == 'ongoing':
@@ -81,19 +80,15 @@ def filtered_events(request, filter_type):
         events = Event.objects.filter(start_date__gt=today).order_by('start_date')
     else:
         events = Event.objects.all().order_by('-start_date')
-
     context = {
         'events': events,
     }
-
     return render(request, 'home.html', context)
-
 
 # Přidáno: Funkce pro filtrování událostí podle regionu
 def region_events(request, region):
     events = Event.objects.filter(region__iexact=region)
     return render(request, 'home.html', {'events': events})
-
 
 def contact(request):
     contacts = [
@@ -103,7 +98,6 @@ def contact(request):
         {'id': 4, 'name': 'Martin Havránek', 'phone': '734 516 102', 'email': 'byll@centrum.cz', 'facebook': 'https://www.facebook.com/martin.havranek.18', 'linkedin': 'https://www.linkedin.com/in/martin-havránek-627316155/'},
     ]
     return render(request, 'contact.html', {'contacts': contacts})
-
 
 def contact_detail(request, id):
     contacts = [
@@ -124,7 +118,6 @@ def contact_detail(request, id):
     contact = next((item for item in contacts if item["id"] == id), None)
     return render(request, 'contact-detail.html', {'contact': contact})
 
-
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -136,11 +129,9 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
-
 @login_required
 def edit_event(request, event_id):
     event = get_object_or_404(Event, id=event_id)
-
     if request.method == 'POST':
         form = EventForm(request.POST, instance=event)
         if form.is_valid():
@@ -148,10 +139,8 @@ def edit_event(request, event_id):
             return redirect('event_detail', event_id=event.id)
     else:
         form = EventForm(instance=event)
-
     return render(request, 'viewer/event_detail.html', {
         'form': form,
         'event': event,
         'is_edit': True,
     })
-

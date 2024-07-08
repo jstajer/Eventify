@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinLengthValidator
-
 from viewer.constants import REGION_CHOICES
+
 
 class Event(models.Model):
     title = models.CharField(
@@ -20,6 +20,7 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
+
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='comments')
@@ -29,6 +30,7 @@ class Comment(models.Model):
     def __str__(self):
         return f'Comment by {self.user} on {self.event}'
 
+
 class Registration(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='registrations')
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='registrations')
@@ -36,3 +38,12 @@ class Registration(models.Model):
 
     def __str__(self):
         return f'{self.user} registered for {self.event}'
+
+
+
+
+#TODO JIRKA udělat page po zalogování, a odlogování a signup.html, pohled, když nejsi přihlášenej a chceš komentovat,
+# obrázky k událostem, API, kdo je přihlášen
+
+#TODO Zeptat se petra na složku VENV druhou a ty templates, filter udělat, pak api,
+# pak ke komentům ten čas a možnost se odregistrovat od eventu a testy
