@@ -17,6 +17,8 @@ class Event(models.Model):
     location = models.CharField(max_length=200, null=True, blank=True)
     region = models.CharField(max_length=40, choices=REGION_CHOICES, default='')
 
+
+
     def __str__(self):
         return self.title
 
@@ -42,8 +44,7 @@ class Registration(models.Model):
 
 
 
-#TODO JIRKA udělat page po zalogování, a odlogování a signup.html, pohled, když nejsi přihlášenej a chceš komentovat,
+#TODO JIRKA udělat page pohled, když nejsi přihlášenej a chceš komentovat,
 # obrázky k událostem, API, kdo je přihlášen
 
-#TODO Zeptat se petra na složku VENV druhou a ty templates, filter udělat, pak api,
-# pak ke komentům ten čas a možnost se odregistrovat od eventu a testy
+#TODO JIRKA Zeptat se petra na složku VENV druhou a ty templates pak api, možnost se odregistrovat od eventu a testy
