@@ -1,6 +1,12 @@
 from django.urls import path, include
+
+import rest_framework
+
+from api.views import *
+import api
 from viewer import views
 from django.contrib import admin
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,4 +22,7 @@ urlpatterns = [
     path('search/', views.search_events, name='search_events'),
     path('signup/', views.signup, name='signup'),
     path('events/<str:filter_type>/', views.filtered_events, name='filtered_events'),
+
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/eventify/', api.views.Events.as_view()),
 ]
