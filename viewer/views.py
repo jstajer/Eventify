@@ -1,16 +1,13 @@
-from django.shortcuts import get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login as auth_login
 from .forms import EventForm
 from django.views.generic import ListView
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from .models import Event, Comment, Registration
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Event, Comment, Registration
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 
 def home(request):
@@ -30,12 +27,16 @@ def login(request):
     return render(request, 'login.html', {'form': form})
 
 
+
 def event_detail(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     comments = Comment.objects.filter(event=event)
     registrations = Registration.objects.filter(event=event)
 
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return redirect('{}?next={}'.format(reverse('login'), request.path))
+
         comment_content = request.POST.get('comment_content')
         if comment_content:
             Comment.objects.create(
@@ -45,7 +46,8 @@ def event_detail(request, event_id):
             )
             return redirect('event_detail', event_id=event_id)
 
-    return render(request, 'viewer/event_detail.html', {'event': event, 'comments': comments, 'registrations': registrations})
+    return render(request, 'viewer/event_detail.html',
+                  {'event': event, 'comments': comments, 'registrations': registrations})
 
 
 def search_events(request):

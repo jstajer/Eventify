@@ -44,7 +44,11 @@ class Registration(models.Model):
 
 
 
-#TODO JIRKA udělat page pohled, když nejsi přihlášenej a chceš komentovat,
-# obrázky k událostem, API, kdo je přihlášen
+#TODO JIRKA
+# obrázky k událostem
 
-#TODO JIRKA Zeptat se petra na složku VENV druhou a ty templates pak api, možnost se odregistrovat od eventu a testy
+#TODO   testy
+
+#TODO , footer , návrat na celou republiku , eventify a home delaji to same , napsat od do
+
+#TODO testování webových stránek

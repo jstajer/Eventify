@@ -1,16 +1,9 @@
+<!-- edit_event.html -->
+{% extends 'viewer/base.html' %}
 
-<!DOCTYPE html>
-{% load static %}
+{% block title %}Edit Event - Eventify{% endblock %}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Event</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-          integrity="sha384-GJzQTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-</head>
-<body>
+{% block content %}
     <div class="container mt-5">
         <h2>Edit Event: {{ event.title }}</h2>
         <form method="post">
@@ -20,5 +13,4 @@
         </form>
         <a href="{% url 'event_detail' event.id %}" class="btn btn-secondary mt-3">Back to Event Detail</a>
     </div>
-</body>
-</html>
+{% endblock %}
