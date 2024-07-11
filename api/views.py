@@ -28,5 +28,6 @@ class Eventdetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
 
     def put(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
-    def __delete__(self, request, *args, **kwargs):
+
+        def __delete__(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
