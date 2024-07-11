@@ -18,7 +18,8 @@ class Events(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPI
         return self.create(request, *args, **kwargs)
 
 
-class Eventdetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView):
+class Eventdetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
+                  mixins.DestroyModelMixin, generics.GenericAPIView):
     queryset = Event.objects.all()
     serializer_class = EventdetailSerializer
 
@@ -27,3 +28,6 @@ class Eventdetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.G
 
     def put(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+    def __delete__(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
