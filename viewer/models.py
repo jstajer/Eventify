@@ -49,6 +49,6 @@ class Registration(models.Model):
 
 #TODO   testy
 
-#TODO , footer , návrat na celou republiku , eventify a home delaji to same , napsat od do
+#TODO , footer , návrat na celou republiku , , napsat od do
 
 #TODO testování webových stránek

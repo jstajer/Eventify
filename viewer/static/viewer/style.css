@@ -20,3 +20,13 @@ body {
     max-height: 200px;
     overflow-y: auto;
 }
+
+footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+   /* position: fixed;*/
+    bottom: 0%; /* Uprostřed vertikálně */
+    z-index: 1000; /* adjust z-index as needed */
+}
