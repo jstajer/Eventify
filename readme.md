@@ -19,5 +19,6 @@
 - Definujeme funkci def edit_event(request, event_id): ve views.py
 - Přidáme cestu pro editaci udalosti do urls.py:  path('event/<int:event_id>/edit/', edit_event, name='edit_event'),
 
+Přidat - event detail
 
 
