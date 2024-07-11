@@ -21,7 +21,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('search/', views.search_events, name='search_events'),
     path('signup/', views.signup, name='signup'),
-    path('events/<str:filter_type>/', views.filtered_events, name='filtered_events'),
+    path('events/<str:filter_type>/', views.filter_events, name='filtered_events'),
 
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/eventify/', api.views.Events.as_view()),
