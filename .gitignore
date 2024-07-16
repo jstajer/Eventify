@@ -1,3 +1,4 @@
 /.idea/
 /db.sqlite3
 /readme.md
+__pycache__
