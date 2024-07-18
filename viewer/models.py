@@ -10,7 +10,7 @@ class Event(models.Model):
     )
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
-    description = models.TextField()
+    description = models.TextField(max_length=500)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='events')
     type = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
