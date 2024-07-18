@@ -19,8 +19,13 @@
                     </a>
                 {% endif %}
                 {% if contact.linkedin %}
-                    <a href="{{ contact.linkedin }}" target="_blank">
+                    <a href="{{ contact.linkedin }}" target="_blank" class="mr-2">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/2048px-LinkedIn_icon.svg.png" width="30px" height="30px" class="fab fa-linkedin">
+                    </a>
+                {% endif %}
+                {% if contact.github %}
+                    <a href="{{ contact.github }}" target="_blank">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" width="30px" height="30px" class="fab fa-github">
                     </a>
                 {% endif %}
             </p>

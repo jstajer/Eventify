@@ -15,17 +15,57 @@ def home(request):
     return render(request, 'home.html', {'events': events})
 
 
-def login(request):
+class HomeListView(ListView):
+    model = Event
+    template_name = 'home.html'
+    context_object_name = 'events'
+    ordering = ['start_date']
+    paginate_by = 10
+
+
+@login_required
+def create_event(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = EventForm(request.POST)
         if form.is_valid():
-            user = form.get_user()
-            auth_login(request, user)
+            form.save()
             return redirect('home')
     else:
-        form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
+        form = EventForm()
+    return render(request, 'viewer/create_event.html', {'form': form})
 
+
+@login_required
+def edit_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=event)
+        if form.is_valid():
+            form.save()
+            return redirect('event_detail', event_id=event.id)
+    else:
+        form = EventForm(instance=event)
+    return render(request, 'viewer/event_detail.html', {
+        'form': form,
+        'event': event,
+        'is_edit': True,
+    })
+
+
+@login_required
+def register_for_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    Registration.objects.get_or_create(user=request.user, event=event)
+    return redirect('event_detail', event_id=event_id)
+
+
+@login_required
+def unregister_from_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    registration = Registration.objects.filter(user=request.user, event=event)
+    if registration.exists():
+        registration.delete()
+    return redirect('event_detail', event_id=event_id)
 
 
 def event_detail(request, event_id):
@@ -91,48 +131,24 @@ def region_events(request, region):
     return render(request, 'home.html', {'events': events})
 
 
-@login_required
-def create_event(request):
+def login(request):
     if request.method == 'POST':
-        form = EventForm(request.POST)
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            form.save()
+            user = form.get_user()
+            auth_login(request, user)
             return redirect('home')
     else:
-        form = EventForm()
-    return render(request, 'viewer/create_event.html', {'form': form})
-
-
-@login_required
-def register_for_event(request, event_id):
-    event = get_object_or_404(Event, id=event_id)
-    Registration.objects.get_or_create(user=request.user, event=event)
-    return redirect('event_detail', event_id=event_id)
-
-
-@login_required
-def unregister_from_event(request, event_id):
-    event = get_object_or_404(Event, id=event_id)
-    registration = Registration.objects.filter(user=request.user, event=event)
-    if registration.exists():
-        registration.delete()
-    return redirect('event_detail', event_id=event_id)
-
-
-class HomeListView(ListView):
-    model = Event
-    template_name = 'home.html'
-    context_object_name = 'events'
-    ordering = ['start_date']
-    paginate_by = 10
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
 
 
 def contact(request):
     contacts = [
-        {'id': 1, 'name': 'Tomáš Král', 'phone': '+420 731 311 943', 'email': 'kraltomas93@seznam.cz', 'instagram': 'https://instagram.com/tomas.kral', 'facebook': 'https://www.facebook.com/tomas.kral.397/', 'linkedin': 'https://www.linkedin.com/in/tom%C3%A1%C5%A1-kr%C3%A1l-a29451b4/'},
-        {'id': 2, 'name': 'Jiří Štajer', 'phone': '+420 601 573 908', 'email': 'jiristajer9@gmail.com', 'instagram': 'https://www.instagram.com/skillabbm', 'facebook': 'https://www.facebook.com/BbmSkilla/', 'linkedin': 'https://www.linkedin.com/in/ji%C5%99%C3%AD-%C5%A1tajer-07a936270/'},
-        {'id': 3, 'name': 'Michal Maják', 'phone': '+420 774 858 566', 'email': 'michalmajak@centrum.cz', 'instagram': 'https://www.instagram.com/michal_majak1986/', 'facebook': 'https://www.facebook.com/MichalMajak86', 'linkedin': 'https://www.linkedin.com/in/michal-maj%C3%A1k-319b182a5/'},
-        {'id': 4, 'name': 'Martin Havránek', 'phone': '+420 734 516 102', 'email': 'byll@centrum.cz', 'facebook': 'https://www.facebook.com/martin.havranek.18', 'linkedin': 'https://www.linkedin.com/in/martin-havránek-627316155/'},
+        {'id': 1, 'name': 'Tomáš Král', 'phone': '+420 731 311 943', 'email': 'kraltomas93@seznam.cz', 'instagram': 'https://instagram.com/tomas.kral', 'facebook': 'https://www.facebook.com/tomas.kral.397/', 'linkedin': 'https://www.linkedin.com/in/tom%C3%A1%C5%A1-kr%C3%A1l-a29451b4/', 'github': 'https://github.com/tomas-kral-repo'},
+        {'id': 2, 'name': 'Jiří Štajer', 'phone': '+420 601 573 908', 'email': 'jiristajer9@gmail.com', 'instagram': 'https://www.instagram.com/skillabbm', 'facebook': 'https://www.facebook.com/BbmSkilla/', 'linkedin': 'https://www.linkedin.com/in/ji%C5%99%C3%AD-%C5%A1tajer-07a936270/', 'github': 'https://github.com/jiri-stajer-repo'},
+        {'id': 3, 'name': 'Michal Maják', 'phone': '+420 774 858 566', 'email': 'michalmajak@centrum.cz', 'instagram': 'https://www.instagram.com/michal_majak1986/', 'facebook': 'https://www.facebook.com/MichalMajak86', 'linkedin': 'https://www.linkedin.com/in/michal-maj%C3%A1k-319b182a5/', 'github': 'https://github.com/michal-majak-repo'},
+        {'id': 4, 'name': 'Martin Havránek', 'phone': '+420 734 516 102', 'email': 'byll@centrum.cz', 'facebook': 'https://www.facebook.com/martin.havranek.18', 'linkedin': 'https://www.linkedin.com/in/martin-havránek-627316155/', 'github': 'https://github.com/martin-havranek-repo'},
     ]
     return render(request, 'contact.html', {'contacts': contacts})
 
@@ -141,17 +157,17 @@ def contact_detail(request, id):
     contacts = [
         {'id': 1, 'name': 'Tomáš Král', 'phone': '+420 731 311 943', 'email': 'kraltomas93@seznam.cz',
          'instagram': 'https://instagram.com/tomas.kral', 'facebook': 'https://www.facebook.com/tomas.kral.397/',
-         'linkedin': 'https://www.linkedin.com/in/tom%C3%A1%C5%A1-kr%C3%A1l-a29451b4/'},
+         'linkedin': 'https://www.linkedin.com/in/tom%C3%A1%C5%A1-kr%C3%A1l-a29451b4/', 'github': 'https://github.com/tomas-kral-repo'},
         {'id': 2, 'name': 'Jiří Štajer', 'phone': '+420 601 573 908', 'email': 'jiristajer9@gmail.com',
          'instagram': 'https://www.instagram.com/skillabbm/', 'facebook': 'https://www.facebook.com/BbmSkilla',
-         'linkedin': 'https://www.linkedin.com/in/ji%C5%99%C3%AD-%C5%A1tajer-07a936270/'},
+         'linkedin': 'https://www.linkedin.com/in/ji%C5%99%C3%AD-%C5%A1tajer-07a936270/', 'github': 'https://github.com/jiri-stajer-repo'},
         {'id': 3, 'name': 'Michal Maják', 'phone': '+420 774 858 566', 'email': 'michalmajak@centrum.cz',
          'instagram': 'https://www.instagram.com/michal_majak1986/',
          'facebook': 'https://www.facebook.com/MichalMajak86',
-         'linkedin': 'https://www.linkedin.com/in/michal-maj%C3%A1k-319b182a5/'},
+         'linkedin': 'https://www.linkedin.com/in/michal-maj%C3%A1k-319b182a5/', 'github': 'https://github.com/michal-majak-repo'},
         {'id': 4, 'name': 'Martin Havránek', 'phone': '+420 734 516 102', 'email': 'byll@centrum.cz',
          'facebook': 'https://www.facebook.com/martin.havranek.18',
-         'linkedin': 'https://www.linkedin.com/in/martin-havránek-627316155/'},
+         'linkedin': 'https://www.linkedin.com/in/martin-havránek-627316155/', 'github': 'https://github.com/martin-havranek-repo'},
     ]
     contact = next((item for item in contacts if item["id"] == id), None)
     return render(request, 'contact-detail.html', {'contact': contact})
@@ -168,19 +184,3 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
-
-@login_required
-def edit_event(request, event_id):
-    event = get_object_or_404(Event, id=event_id)
-    if request.method == 'POST':
-        form = EventForm(request.POST, instance=event)
-        if form.is_valid():
-            form.save()
-            return redirect('event_detail', event_id=event.id)
-    else:
-        form = EventForm(instance=event)
-    return render(request, 'viewer/event_detail.html', {
-        'form': form,
-        'event': event,
-        'is_edit': True,
-    })

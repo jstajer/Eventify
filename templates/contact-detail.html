@@ -1,23 +1,28 @@
-{% extends 'base.html' %}
+{% extends "viewer/base.html" %}
 
 {% block content %}
 <h2>{{ contact.name }}</h2>
-<p><a href="tel:{{ contact.phone }}"><i class="fas fa-phone"></i> {{ contact.phone }}</a></p>
-<p><a href="mailto:{{ contact.email }}"><i class="fas fa-envelope"></i> {{ contact.email }}</a></p>
+<p><img src="https://cdn4.iconfinder.com/data/icons/social-media-2097/94/phone-512.png" width="30px" height="30px"> {{ contact.phone }}</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Mail_%28iOS%29.svg/480px-Mail_%28iOS%29.svg.png" width="30px" height="30px"> <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
 <p>
     {% if contact.instagram %}
         <a href="{{ contact.instagram }}" target="_blank" class="mr-2">
-            <i class="fab fa-instagram"></i>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/600px-Instagram_logo_2022.svg.png" width="30px" height="30px" class="fab fa-instagram">
         </a>
     {% endif %}
     {% if contact.facebook %}
         <a href="{{ contact.facebook }}" target="_blank" class="mr-2">
-            <i class="fab fa-facebook"></i>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/600px-Facebook_logo_%28square%29.png" width="30px" height="30px" class="fab fa-facebook">
         </a>
     {% endif %}
     {% if contact.linkedin %}
-        <a href="{{ contact.linkedin }}" target="_blank">
-            <i class="fab fa-linkedin"></i>
+        <a href="{{ contact.linkedin }}" target="_blank" class="mr-2">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/LinkedIn_icon.svg/2048px-LinkedIn_icon.svg.png" width="30px" height="30px" class="fab fa-linkedin">
+        </a>
+    {% endif %}
+    {% if contact.github %}
+        <a href="{{ contact.github }}" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" width="30px" height="30px" class="fab fa-github">
         </a>
     {% endif %}
 </p>
