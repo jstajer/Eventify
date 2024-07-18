@@ -6,8 +6,8 @@ from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Event, Comment, Registration
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.db.models import Q
 
 
 def home(request):
@@ -56,24 +56,17 @@ def search_events(request):
     end_date = request.GET.get('end_date')
     event_type = request.GET.get('event_type')
     location = request.GET.get('location')
-
     events = Event.objects.all()
-
     if query:
         events = events.filter(Q(title__icontains=query) | Q(description__icontains=query))
-
     if start_date:
         events = events.filter(start_date__gte=start_date)
-
     if end_date:
         events = events.filter(end_date__lte=end_date)
-
     if event_type:
-        events = events.filter(event_type__iexact=event_type)
-
+        events = events.filter(type__icontains=event_type)  # Použití správného názvu pole
     if location:
-        events = events.filter(location__iexact=location)
-
+        events = events.filter(location__icontains=location)
     return render(request, 'home.html', {'events': events})
 
 
