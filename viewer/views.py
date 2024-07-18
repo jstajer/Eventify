@@ -146,7 +146,7 @@ def login(request):
 def contact(request):
     contacts = [
         {'id': 1, 'name': 'Tomáš Král', 'phone': '+420 731 311 943', 'email': 'kraltomas93@seznam.cz', 'instagram': 'https://instagram.com/tomas.kral', 'facebook': 'https://www.facebook.com/tomas.kral.397/', 'linkedin': 'https://www.linkedin.com/in/tom%C3%A1%C5%A1-kr%C3%A1l-a29451b4/', 'github': 'https://github.com/tomas-kral-repo'},
-        {'id': 2, 'name': 'Jiří Štajer', 'phone': '+420 601 573 908', 'email': 'jiristajer9@gmail.com', 'instagram': 'https://www.instagram.com/skillabbm', 'facebook': 'https://www.facebook.com/BbmSkilla/', 'linkedin': 'https://www.linkedin.com/in/ji%C5%99%C3%AD-%C5%A1tajer-07a936270/', 'github': 'https://github.com/jiri-stajer-repo'},
+        {'id': 2, 'name': 'Jiří Štajer', 'phone': '+420 601 573 908', 'email': 'jiristajer9@gmail.com', 'instagram': 'https://www.instagram.com/skillabbm', 'facebook': 'https://www.facebook.com/BbmSkilla/', 'linkedin': 'https://www.linkedin.com/in/ji%C5%99%C3%AD-%C5%A1tajer-07a936270/', 'github': 'https://github.com/jstajer'},
         {'id': 3, 'name': 'Michal Maják', 'phone': '+420 774 858 566', 'email': 'michalmajak@centrum.cz', 'instagram': 'https://www.instagram.com/michal_majak1986/', 'facebook': 'https://www.facebook.com/MichalMajak86', 'linkedin': 'https://www.linkedin.com/in/michal-maj%C3%A1k-319b182a5/', 'github': 'https://github.com/michal-majak-repo'},
         {'id': 4, 'name': 'Martin Havránek', 'phone': '+420 734 516 102', 'email': 'byll@centrum.cz', 'facebook': 'https://www.facebook.com/martin.havranek.18', 'linkedin': 'https://www.linkedin.com/in/martin-havránek-627316155/', 'github': 'https://github.com/martin-havranek-repo'},
     ]
@@ -160,7 +160,7 @@ def contact_detail(request, id):
          'linkedin': 'https://www.linkedin.com/in/tom%C3%A1%C5%A1-kr%C3%A1l-a29451b4/', 'github': 'https://github.com/tomas-kral-repo'},
         {'id': 2, 'name': 'Jiří Štajer', 'phone': '+420 601 573 908', 'email': 'jiristajer9@gmail.com',
          'instagram': 'https://www.instagram.com/skillabbm/', 'facebook': 'https://www.facebook.com/BbmSkilla',
-         'linkedin': 'https://www.linkedin.com/in/ji%C5%99%C3%AD-%C5%A1tajer-07a936270/', 'github': 'https://github.com/jiri-stajer-repo'},
+         'linkedin': 'https://www.linkedin.com/in/ji%C5%99%C3%AD-%C5%A1tajer-07a936270/', 'github': 'https://github.com/jstajer'},
         {'id': 3, 'name': 'Michal Maják', 'phone': '+420 774 858 566', 'email': 'michalmajak@centrum.cz',
          'instagram': 'https://www.instagram.com/michal_majak1986/',
          'facebook': 'https://www.facebook.com/MichalMajak86',
