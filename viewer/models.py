@@ -18,7 +18,6 @@ class Event(models.Model):
     region = models.CharField(max_length=40, choices=REGION_CHOICES, default='')
     image = models.ImageField(upload_to='event_images/', null=True, blank=True)
 
-
     def __str__(self):
         return self.title
 
@@ -45,9 +44,9 @@ class Registration(models.Model):
 
 
 #TODO JIRKA, udelat readme projektu, poskladat kod a naucit se ho, er diagram, doplnit databazi,
-#TODO, kouknout na projekt podle zadani, od do k vyhledávání událostí, typy eventů, location, minulé eventy, procházející, budoucí
-# obrázky k událostem, uživatele doplnit, možná i nějakou jinou domovskou stránku udělat a pak mít events v liště, možná celá republika zpátky
-# ke kontaktu dát git repozitář, zeptat se Petra, jestli nám projde ty teplates, jestli je to v pořádku.
+#TODO, kouknout na projekt podle zadani,, typy eventů, location, minulé eventy, procházející, budoucí
+#  uživatele doplnit, možná i nějakou jinou domovskou stránku udělat a pak mít events v liště, možná celá republika zpátky
+#  zeptat se Petra, jestli nám projde ty teplates, jestli je to v pořádku.
 
 #TODO   testy
 

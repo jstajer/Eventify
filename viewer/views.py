@@ -8,6 +8,9 @@ from .models import Event, Comment, Registration
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.db.models import Q
+from django.shortcuts import render, redirect
+from django.contrib.auth import login as auth_login
+from .forms import CustomUserCreationForm
 
 
 def home(request):
@@ -175,12 +178,11 @@ def contact_detail(request, id):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
             return redirect('home')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'signup.html', {'form': form})
-
