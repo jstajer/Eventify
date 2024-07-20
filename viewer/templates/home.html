@@ -8,10 +8,12 @@
             <input type="text" name="q" class="form-control" placeholder="Search events">
         </div>
         <div class="col-md-2">
-            <input type="date" name="start_date" class="form-control" placeholder="Start date">
+            <label for="start_date" class="sr-only">From</label>
+            <input type="date" id="start_date" name="start_date" class="form-control" placeholder="Start date">
         </div>
         <div class="col-md-2">
-            <input type="date" name="end_date" class="form-control" placeholder="End date">
+            <label for="end_date" class="sr-only">To</label>
+            <input type="date" id="end_date" name="end_date" class="form-control" placeholder="End date">
         </div>
         <div class="col-md-2">
             <input type="text" name="event_type" class="form-control" placeholder="Event type">
@@ -22,6 +24,16 @@
         <div class="col-md-1">
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-3"></div>
+        <div class="col-md-2">
+            <small class="form-text text-muted">From</small>
+        </div>
+        <div class="col-md-2">
+            <small class="form-text text-muted">To</small>
+        </div>
+        <div class="col-md-5"></div>
     </div>
 </form>
 <div class="row mt-4">

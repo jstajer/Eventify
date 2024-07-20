@@ -44,7 +44,7 @@ class Registration(models.Model):
 
 
 
-#TODO JIRKA, srovnat regiony podle abecedy, udelat readme projektu, poskladat kod a naucit se ho, er diagram, doplnit databazi,
+#TODO JIRKA, udelat readme projektu, poskladat kod a naucit se ho, er diagram, doplnit databazi,
 #TODO, kouknout na projekt podle zadani, od do k vyhledávání událostí, typy eventů, location, minulé eventy, procházející, budoucí
 # obrázky k událostem, uživatele doplnit, možná i nějakou jinou domovskou stránku udělat a pak mít events v liště, možná celá republika zpátky
 # ke kontaktu dát git repozitář, zeptat se Petra, jestli nám projde ty teplates, jestli je to v pořádku.
