@@ -1,8 +1,9 @@
 from .models import Event
 from .constants import REGION_CHOICES
-from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class EventForm(forms.ModelForm):
@@ -29,3 +30,10 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class EmailOrUsernameLoginForm(AuthenticationForm):
+    username = forms.CharField(
+        label="Username or Email",
+        widget=forms.TextInput(attrs={'autofocus': True})
+    )

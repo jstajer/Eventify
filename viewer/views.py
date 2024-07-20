@@ -8,9 +8,10 @@ from .models import Event, Comment, Registration
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.db.models import Q
+from .forms import CustomUserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login
-from .forms import CustomUserCreationForm
+from .forms import EmailOrUsernameLoginForm
 
 
 def home(request):
@@ -136,14 +137,26 @@ def region_events(request, region):
 
 def login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = EmailOrUsernameLoginForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             auth_login(request, user)
             return redirect('home')
     else:
-        form = AuthenticationForm()
+        form = EmailOrUsernameLoginForm()
     return render(request, 'login.html', {'form': form})
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)
+            return redirect('home')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'signup.html', {'form': form})
 
 
 def contact(request):
@@ -174,15 +187,3 @@ def contact_detail(request, id):
     ]
     contact = next((item for item in contacts if item["id"] == id), None)
     return render(request, 'contact-detail.html', {'contact': contact})
-
-
-def signup(request):
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)
-            return redirect('home')
-    else:
-        form = CustomUserCreationForm()
-    return render(request, 'signup.html', {'form': form})
