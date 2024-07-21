@@ -9,6 +9,9 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.db.models import Q
 
+from django.http import HttpResponse
+from django.shortcuts import render
+from viewer.models import Event
 
 def home(request):
     events = Event.objects.all() #filter(start_date__gte=timezone.now()).order_by('start_date')
@@ -126,10 +129,46 @@ def filter_events(request, filter_type):
     return render(request, 'home.html', context)
 
 
-def region_events(request, region):
-    events = Event.objects.filter(region__iexact=region)
-    return render(request, 'home.html', {'events': events})
+REGION_MAP = {
+    "PR": "Praha",
+    "MO": "Moravskoslezský",
+    "ZL": "Zlínský",
+    "LI": "Liberecký",
+    "PL": "Plzeňský",
+    "OL": "Olomoucký",
+    "KA": "Karlovarský",
+    "JM": "Jihomoravský",
+    "PA": "Pardubický",
+    "KH": "Královéhradecký",
+    "US": "Ústecký",
+    "VY": "Vysočina",
+    "JC": "Jihočeský",
+    "ST": "Středočeský"
+}
 
+
+def region_events(request, region):
+    print(f"Requested region: {region}")
+
+    region_code = None
+    for code, name in REGION_MAP.items():
+        if name.lower() == region.lower():
+            region_code = code
+            break
+
+    if region_code is None:
+        print(f"Region code not found for: {region}")  # Debugging print
+        return HttpResponse(f"No events found for region: {region}")
+
+    print(f"Region code found: {region_code}")  # Debugging print
+
+    events = Event.objects.filter(region__iexact=region_code)
+    print(f"Number of events found: {events.count()}")  # Debugging print
+
+    if not events.exists():
+        return render(request, 'region_events.html', {'events': events, 'region': region, 'no_events': True})
+
+    return render(request, 'region_events.html', {'events': events, 'region': region})
 
 def login(request):
     if request.method == 'POST':
@@ -141,7 +180,6 @@ def login(request):
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
-
 
 def contact(request):
     contacts = [
