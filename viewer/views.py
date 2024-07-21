@@ -8,10 +8,28 @@ from .models import Event, Comment, Registration
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.db.models import Q
+from .forms import CustomUserCreationForm
+from django.shortcuts import render, redirect
+from django.contrib.auth import login as auth_login
+from .forms import EmailOrUsernameLoginForm
 
-from django.http import HttpResponse
-from django.shortcuts import render
-from viewer.models import Event
+REGION_MAP = {
+    'praha': 'PR',
+    'moravskoslezský': 'MO',
+    'zlínský': 'ZL',
+    'liberecký': 'LI',
+    'plzeňský': 'PL',
+    'olomoucký': 'OL',
+    'karlovarský': 'KA',
+    'jihomoravský': 'JM',
+    "pardubický": "PA",
+    "královehradecký": "HK",
+    "ústecký": "US",
+    "vysočina": "VY",
+    "jihočeský": "JC",
+    "středočeský": "ST"
+}
+
 
 def home(request):
     events = Event.objects.all() #filter(start_date__gte=timezone.now()).order_by('start_date')
@@ -129,57 +147,47 @@ def filter_events(request, filter_type):
     return render(request, 'home.html', context)
 
 
-REGION_MAP = {
-    "PR": "Praha",
-    "MO": "Moravskoslezský",
-    "ZL": "Zlínský",
-    "LI": "Liberecký",
-    "PL": "Plzeňský",
-    "OL": "Olomoucký",
-    "KA": "Karlovarský",
-    "JM": "Jihomoravský",
-    "PA": "Pardubický",
-    "KH": "Královéhradecký",
-    "US": "Ústecký",
-    "VY": "Vysočina",
-    "JC": "Jihočeský",
-    "ST": "Středočeský"
-}
-
-
 def region_events(request, region):
-    print(f"Requested region: {region}")
+    region_normalized = region.lower()
+    region_code = REGION_MAP.get(region_normalized)
 
-    region_code = None
-    for code, name in REGION_MAP.items():
-        if name.lower() == region.lower():
-            region_code = code
-            break
+    # Ladicí výstup
+    print(f"Region: {region}, Normalized: {region_normalized}, Code: {region_code}")
 
-    if region_code is None:
-        print(f"Region code not found for: {region}")  # Debugging print
-        return HttpResponse(f"No events found for region: {region}")
+    if region_code:
+        events = Event.objects.filter(region__iexact=region_code)
+    else:
+        events = Event.objects.none()
 
-    print(f"Region code found: {region_code}")  # Debugging print
+    if events.exists():
+        return render(request, 'region_events.html', {'events': events, 'region': region.title()})
+    else:
+        return render(request, 'region_events.html', {'events': [], 'region': region.title(), 'no_events': True})
 
-    events = Event.objects.filter(region__iexact=region_code)
-    print(f"Number of events found: {events.count()}")  # Debugging print
-
-    if not events.exists():
-        return render(request, 'region_events.html', {'events': events, 'region': region, 'no_events': True})
-
-    return render(request, 'region_events.html', {'events': events, 'region': region})
 
 def login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = EmailOrUsernameLoginForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             auth_login(request, user)
             return redirect('home')
     else:
-        form = AuthenticationForm()
+        form = EmailOrUsernameLoginForm()
     return render(request, 'login.html', {'form': form})
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)
+            return redirect('home')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'signup.html', {'form': form})
+
 
 def contact(request):
     contacts = [
@@ -209,16 +217,3 @@ def contact_detail(request, id):
     ]
     contact = next((item for item in contacts if item["id"] == id), None)
     return render(request, 'contact-detail.html', {'contact': contact})
-
-
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)
-            return redirect('home')
-    else:
-        form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
-
