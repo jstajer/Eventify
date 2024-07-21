@@ -13,6 +13,23 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login
 from .forms import EmailOrUsernameLoginForm
 
+REGION_MAP = {
+    'praha': 'PR',
+    'moravskoslezský': 'MO',
+    'zlínský': 'ZL',
+    'liberecký': 'LI',
+    'plzeňský': 'PL',
+    'olomoucký': 'OL',
+    'karlovarský': 'KA',
+    'jihomoravský': 'JM',
+    "pardubický": "PA",
+    "královehradecký": "HK",
+    "ústecký": "US",
+    "vysočina": "VY",
+    "jihočeský": "JC",
+    "středočeský": "ST"
+}
+
 
 def home(request):
     events = Event.objects.all() #filter(start_date__gte=timezone.now()).order_by('start_date')
@@ -131,8 +148,21 @@ def filter_events(request, filter_type):
 
 
 def region_events(request, region):
-    events = Event.objects.filter(region__iexact=region)
-    return render(request, 'home.html', {'events': events})
+    region_normalized = region.lower()
+    region_code = REGION_MAP.get(region_normalized)
+
+    # Ladicí výstup
+    print(f"Region: {region}, Normalized: {region_normalized}, Code: {region_code}")
+
+    if region_code:
+        events = Event.objects.filter(region__iexact=region_code)
+    else:
+        events = Event.objects.none()
+
+    if events.exists():
+        return render(request, 'region_events.html', {'events': events, 'region': region.title()})
+    else:
+        return render(request, 'region_events.html', {'events': [], 'region': region.title(), 'no_events': True})
 
 
 def login(request):
