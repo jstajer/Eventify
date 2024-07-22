@@ -1,7 +1,7 @@
 
 REGION_CHOICES = [
-    ('JM', 'Jihomoravský'),
     ('JC', 'Jihočeský'),
+    ('JM', 'Jihomoravský'),
     ('KA', 'Karlovarský'),
     ('KR', 'Královéhradecký'),
     ('LI', 'Liberecký'),

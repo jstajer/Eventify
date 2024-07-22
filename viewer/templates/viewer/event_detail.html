@@ -4,75 +4,78 @@
 {% block title %}Event Detail - {{ event.title }}{% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h1>{{ event.title }}</h1>
-        <p><strong>Location:</strong> {{ event.location }}</p>
-        <p><strong>Start Date:</strong> {{ event.start_date }}</p>
-        <p><strong>End Date:</strong> {{ event.end_date }}</p>
-        <p><strong>Description:</strong> {{ event.description }}</p>
-        <p><strong>Type:</strong> {{ event.type }}</p>
-        <p><strong>Price:</strong> {{ event.price }}</p>
-        <p><strong>Region:</strong> {{ event.get_region_display }}</p>
+<div class="container mt-5">
+    <h1>{{ event.title }}</h1>
+    {% if event.image %}
+    <img src="{{ event.image.url }}" class="img-fluid mb-4" alt="{{ event.title }}">
+    {% endif %}
+    <p><strong>Location:</strong> {{ event.location }}</p>
+    <p><strong>Start Date:</strong> {{ event.start_date }}</p>
+    <p><strong>End Date:</strong> {{ event.end_date }}</p>
+    <p><strong>Description:</strong> {{ event.description }}</p>
+    <p><strong>Type:</strong> {{ event.type }}</p>
+    <p><strong>Price:</strong> {{ event.price }}</p>
+    <p><strong>Region:</strong> {{ event.get_region_display }}</p>
 
-        {% if is_edit %}
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </form>
-        {% else %}
-            {% if user.is_authenticated and user.is_superuser %}
-                <a href="{% url 'edit_event' event.id %}" class="btn btn-warning" style="background-color: yellow;">Edit Event</a>
-            {% endif %}
+    {% if is_edit %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </form>
+    {% else %}
+    {% if user.is_authenticated and user.is_superuser %}
+    <a href="{% url 'edit_event' event.id %}" class="btn btn-warning" style="background-color: yellow;">Edit Event</a>
+    {% endif %}
 
-            <h2>Comments</h2>
-            <ul>
-                {% for comment in comments %}
-                    <li>{{ comment.content }} - <em>{{ comment.user.username }}</em> on {{ comment.created_at }}</li>
-                {% empty %}
-                    <li>No comments yet.</li>
-                {% endfor %}
-            </ul>
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in comments %}
+        <li>{{ comment.content }} - <em>{{ comment.user.username }}</em> on {{ comment.created_at }}</li>
+        {% empty %}
+        <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
 
-            <h3>Add a Comment</h3>
-            <form method="post" action="{% url 'event_detail' event.id %}">
-                {% csrf_token %}
-                <textarea name="comment_content" rows="4"></textarea><br>
-                <button type="submit" class="btn btn-primary">Add Comment</button>
-            </form>
+    <h3>Add a Comment</h3>
+    <form method="post" action="{% url 'event_detail' event.id %}">
+        {% csrf_token %}
+        <textarea name="comment_content" rows="4"></textarea><br>
+        <button type="submit" class="btn btn-primary">Add Comment</button>
+    </form>
 
-            <h2>Registrations</h2>
-            <ul>
-                {% for registration in registrations %}
-                    <li>{{ registration.user.username }}</li>
-                    {% if registration.user == user %}
-                        <form method="post" action="{% url 'unregister_from_event' event.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger">Unregister from Event</button>
-                        </form>
-                    {% endif %}
-                {% empty %}
-                    <li>No registrations yet.</li>
-                {% endfor %}
-            </ul>
-
-            {% if user.is_authenticated %}
-                {% if user in registrations.all %}
-                    <form method="post" action="{% url 'unregister_from_event' event.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Unregister from Event</button>
-                    </form>
-                {% else %}
-                    <form method="post" action="{% url 'register_for_event' event.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-primary">Register for Event</button>
-                    </form>
-                {% endif %}
-            {% else %}
-                <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to register for this event.</p>
-            {% endif %}
+    <h2>Registrations</h2>
+    <ul>
+        {% for registration in registrations %}
+        <li>{{ registration.user.username }}</li>
+        {% if registration.user == user %}
+        <form method="post" action="{% url 'unregister_from_event' event.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Unregister from Event</button>
+        </form>
         {% endif %}
+        {% empty %}
+        <li>No registrations yet.</li>
+        {% endfor %}
+    </ul>
 
-        <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>
-    </div>
+    {% if user.is_authenticated %}
+    {% if user in registrations.all %}
+    <form method="post" action="{% url 'unregister_from_event' event.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Unregister from Event</button>
+    </form>
+    {% else %}
+    <form method="post" action="{% url 'register_for_event' event.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Register for Event</button>
+    </form>
+    {% endif %}
+    {% else %}
+    <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to register for this event.</p>
+    {% endif %}
+    {% endif %}
+
+    <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>
+</div>
 {% endblock %}

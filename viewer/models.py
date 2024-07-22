@@ -10,14 +10,13 @@ class Event(models.Model):
     )
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
-    description = models.TextField(max_length=500)
+    description = models.TextField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='events')
     type = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     location = models.CharField(max_length=200, null=True, blank=True)
     region = models.CharField(max_length=40, choices=REGION_CHOICES, default='')
-
-
+    image = models.ImageField(upload_to='event_images/', null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -44,11 +43,11 @@ class Registration(models.Model):
 
 
 
-#TODO JIRKA
-# obrázky k událostem
+#TODO JIRKA, udelat readme projektu, poskladat kod a naucit se ho, er diagram, doplnit databazi,
+#TODO, kouknout na projekt podle zadani,, typy eventů, location, minulé eventy, procházející, budoucí
+#  uživatele doplnit, možná i nějakou jinou domovskou stránku udělat a pak mít events v liště, možná celá republika zpátky
+#  zeptat se Petra, jestli nám projde ty teplates, jestli je to v pořádku.
 
 #TODO   testy
-
-#TODO , footer , návrat na celou republiku , , napsat od do
 
 #TODO testování webových stránek
