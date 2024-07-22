@@ -1,13 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.validators import MinLengthValidator
 from viewer.constants import REGION_CHOICES
 
 
 class Event(models.Model):
-    title = models.CharField(
-        max_length=100,
-    )
+    title = models.CharField(max_length=100)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     description = models.TextField()
@@ -48,6 +45,6 @@ class Registration(models.Model):
 #  uživatele doplnit, možná i nějakou jinou domovskou stránku udělat a pak mít events v liště, možná celá republika zpátky
 #  zeptat se Petra, jestli nám projde ty teplates, jestli je to v pořádku.
 
-#TODO   testy
-
+#TODO   testy, odstranit když je člověk odhlášeny okénko ADD COMMENT , ošetřit aby nešlo udělat stejné akce, aby akce nemohla končit dřív než začíná atd.
+#TODO aby ve filtru zůstalo to, co tam člověk zadal, createevent pouze uživatel se speciální rolí,
 #TODO testování webových stránek
