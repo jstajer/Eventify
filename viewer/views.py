@@ -8,10 +8,10 @@ from .models import Event, Comment, Registration
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.db.models import Q
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, EmailOrUsernameLoginForm, EventFilterForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login
-from .forms import EmailOrUsernameLoginForm
+
 
 REGION_MAP = {
     'praha': 'PR',
@@ -32,8 +32,15 @@ REGION_MAP = {
 
 
 def home(request):
-    events = Event.objects.all() #filter(start_date__gte=timezone.now()).order_by('start_date')
-    return render(request, 'home.html', {'events': events})
+    form = EventFilterForm(request.GET or None)
+    events = Event.objects.all()
+
+    if form.is_valid():
+        event_type = form.cleaned_data.get('event_type')
+        if event_type:
+            events = events.filter(type=event_type)
+
+    return render(request, 'home.html', {'events': events, 'form': form})
 
 
 class HomeListView(ListView):

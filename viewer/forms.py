@@ -1,5 +1,5 @@
 from .models import Event
-from .constants import REGION_CHOICES
+from .constants import REGION_CHOICES, EVENT_TYPE_CHOICES
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
@@ -13,8 +13,23 @@ class EventForm(forms.ModelForm):
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'datetime-local'}),
             'end_date': forms.DateInput(attrs={'type': 'datetime-local'}),
-            'district': forms.Select(choices=REGION_CHOICES),
+            'region': forms.Select(choices=REGION_CHOICES),
+            'type': forms.Select(choices=EVENT_TYPE_CHOICES),
         }
+
+
+class EventFilterForm(forms.Form):
+    event_type = forms.ChoiceField(choices=[
+        ('', 'Select Event Type'),
+        ('Food', 'Food'),
+        ('Music', 'Music'),
+        ('Sport', 'Sport'),
+        ('Culture', 'Culture'),
+        ('Wellness', 'Wellness'),
+        ('Experiences', 'Experiences'),
+        ('Nature', 'Nature'),
+        ('Free', 'Free')
+    ], required=False, label='Event Type')
 
 
 class CustomUserCreationForm(UserCreationForm):

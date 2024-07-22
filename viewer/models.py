@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinLengthValidator
-from viewer.constants import REGION_CHOICES
+from viewer.constants import REGION_CHOICES, EVENT_TYPE_CHOICES
 
 
 class Event(models.Model):
@@ -12,7 +12,7 @@ class Event(models.Model):
     end_date = models.DateTimeField()
     description = models.TextField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='events')
-    type = models.CharField(max_length=50)
+    type = models.CharField(max_length=50, choices=EVENT_TYPE_CHOICES)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     location = models.CharField(max_length=200, null=True, blank=True)
     region = models.CharField(max_length=40, choices=REGION_CHOICES, default='')

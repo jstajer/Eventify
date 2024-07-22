@@ -15,3 +15,14 @@ REGION_CHOICES = [
     ('VY', 'Vysočina'),
     ('ZL', 'Zlínský'),
 ]
+
+EVENT_TYPE_CHOICES = [
+    ('food', 'Food'),
+    ('music', 'Music'),
+    ('sport', 'Sport'),
+    ('culture', 'Culture'),
+    ('wellness', 'Wellness'),
+    ('experiences', 'Experiences'),
+    ('nature', 'Nature'),
+    ('free', 'Free'),
+]
