@@ -46,7 +46,6 @@ class Registration(models.Model):
 #TODO JIRKA, udelat readme projektu, poskladat kod a naucit se ho, er diagram, doplnit databazi,
 #TODO, kouknout na projekt podle zadani,, typy eventů, location, minulé eventy, procházející, budoucí
 #  uživatele doplnit, možná i nějakou jinou domovskou stránku udělat a pak mít events v liště, možná celá republika zpátky
-#  zeptat se Petra, jestli nám projde ty teplates, jestli je to v pořádku.
 
 #TODO   testy
 

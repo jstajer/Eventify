@@ -32,27 +32,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="regionDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Region
-                    </a>
-                    <div class="dropdown-menu region-dropdown" aria-labelledby="regionDropdown">
-                        <a class="dropdown-item" href="{% url 'region_events' 'Praha' %}">Praha</a>
-                        <a class="dropdown-item" href="{% url 'region_events' 'Středočeský' %}">Středočeský</a>
-                        <a class="dropdown-item" href="{% url 'region_events' 'Jihočeský' %}">Jihočeský</a>
-                        <a class="dropdown-item" href="{% url 'region_events' 'Plzeňský' %}">Plzeňský</a>
-                        <a class="dropdown-item" href="{% url 'region_events' 'Karlovarský' %}">Karlovarský</a>
-                        <a class="dropdown-item" href="{% url 'region_events' 'Ústecký' %}">Ústecký</a>
-                        <a class="dropdown-item" href="{% url 'region_events' 'Liberecký' %}">Liberecký</a>
-                        <a class="dropdown-item" href="{% url 'region_events' 'Královéhradecký' %}">Královéhradecký</a>
-                        <a class="dropdown-item" href="{% url 'region_events' 'Pardubický' %}">Pardubický</a>
-                        <a class="dropdown-item" href="{% url 'region_events' 'Vysočina' %}">Vysočina</a>
-                        <a class="dropdown-item" href="{% url 'region_events' 'Jihomoravský' %}">Jihomoravský</a>
-                        <a class="dropdown-item" href="{% url 'region_events' 'Olomoucký' %}">Olomoucký</a>
-                        <a class="dropdown-item" href="{% url 'region_events' 'Zlínský' %}">Zlínský</a>
-                        <a class="dropdown-item" href="{% url 'region_events' 'Moravskoslezský' %}">Moravskoslezský</a>
-                    </div>
-                </li>
+
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
