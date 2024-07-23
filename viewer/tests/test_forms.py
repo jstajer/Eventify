@@ -18,7 +18,7 @@ class EventFormTest(TestCase):
             "end_date": datetime.now() + timedelta(days=5),
             "description": "My Description",
             "created_by": self.user,
-            "type": "Cinema",
+            "type": "Food",
             "price": 290.45,
             "location": "Fórum Karlín",
             "region": "JM"
@@ -33,7 +33,7 @@ class EventFormTest(TestCase):
             "end_date": datetime.now() + timedelta(days=5),
             "description": "My Description",
             "created_by": self.user,
-            "type": "Cinema",
+            "type": "Food",
             "price": 290.45,
             "region": "JM"
         })
