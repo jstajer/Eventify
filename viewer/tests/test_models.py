@@ -34,5 +34,4 @@ class EventModelTest(TestCase):
         event.save()
 
         event_from_db = Event.objects.get(id=event.id)
-        self.assertEqual(event_from_db.title, "Foo")
-        self.assertEqual(event_from_db.start_date, start_date)
+        self.assertEqual(event_from_db, event)
