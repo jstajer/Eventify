@@ -43,14 +43,6 @@ def home(request):
     return render(request, 'home.html', {'events': events, 'form': form})
 
 
-class HomeListView(ListView):
-    model = Event
-    template_name = 'home.html'
-    context_object_name = 'events'
-    ordering = ['start_date']
-    paginate_by = 10
-
-
 @login_required
 def create_event(request):
     if request.method == 'POST':
@@ -71,8 +63,7 @@ def edit_event(request, event_id):
         if form.is_valid():
             form.save()
             return redirect('event_detail', event_id=event.id)
-    else:
-        form = EventForm(instance=event)
+    form = EventForm(instance=event)
     return render(request, 'viewer/event_detail.html', {
         'form': form,
         'event': event,
@@ -174,8 +165,7 @@ def login(request):
             user = form.get_user()
             auth_login(request, user)
             return redirect('home')
-    else:
-        form = EmailOrUsernameLoginForm()
+    form = EmailOrUsernameLoginForm()
     return render(request, 'login.html', {'form': form})
 
 
@@ -186,8 +176,7 @@ def signup(request):
             user = form.save()
             auth_login(request, user)
             return redirect('home')
-    else:
-        form = CustomUserCreationForm()
+    form = CustomUserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
 

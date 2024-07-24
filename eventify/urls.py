@@ -34,7 +34,7 @@ urlpatterns = [
 
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/eventify/', api.views.Events.as_view()),
-    path('api/event/<pk>/', api.views.Eventdetail.as_view()),
+    path('api/event/<pk>/', api.views.EventDetail.as_view()),
 ]
 
 if settings.DEBUG:
