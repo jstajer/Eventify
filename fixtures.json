@@ -1,0 +1,321 @@
+[
+  {
+    "model": "viewer.event",
+    "pk": 1,
+    "fields": {
+      "title": "Burger Fest",
+      "start_date": "2024-07-22T18:33:00Z",
+      "end_date": "2024-07-29T18:33:00Z",
+      "description": "Vůně grilovaného masa zaplaví Holešovice, muzika roztančí i taneční antitalenty, kuchařské show ti naplní bříško a hlavně se už nemusíš ptát „a co děti, mají si kde hrát“.",
+      "created_by": 1,
+      "type": "food",
+      "price": "200.00",
+      "location": "Karlin, Praha",
+      "region": "PR",
+      "image": "event_images/burger.jpg"
+    }
+  },
+  {
+    "model": "viewer.event",
+    "pk": 2,
+    "fields": {
+      "title": "Beats for Love",
+      "start_date": "2024-07-03T08:51:00Z",
+      "end_date": "2024-07-06T22:02:00Z",
+      "description": "Beats for Love je hudební festival zaměřený na elektronickou hudbu. Koná se každoročně v Ostravě, na území industriální památky Dolní oblast Vítkovic.[1] [2] Festival vznikl roku 2013. První ročník navštívilo 25 000 diváků, druhý ročník (2014) 35 000, třetí ročník (2015) 40 000[3], čtvrtý ročník (2016) pak přes 42 000 a bylo vyprodáno.[4] V pátém ročníku návštěvnost i kapacita festivalu narostla.\r\n\r\nV anketě televize Prima Cool Bestcoolfest byl vyhlášen v roce 2016 a 2017 nejlepším festivalem v České republice[5] a v roce 2017 byl nominován do prestižní ankety European Festival Awards. Pro přepravu návštěvníků do okolních obcí a měst z tohoto festivalu společně s festivalem Colours of Ostrava bývají vypravovány i speciální noční vlaky.",
+      "created_by": 1,
+      "type": "music",
+      "price": "2500.00",
+      "location": "Ostrava, Dolní Vítkovice",
+      "region": "MO",
+      "image": "event_images/beats.jpg"
+    }
+  },
+  {
+    "model": "viewer.event",
+    "pk": 3,
+    "fields": {
+      "title": "Masters of Rock",
+      "start_date": "2025-07-10T18:32:00Z",
+      "end_date": "2025-07-13T18:32:00Z",
+      "description": "Masters of Rock je největší mezinárodní rockový open-air festival v ČR,[1] pořádaný a pravidelně se rozrůstající ve Vizovicích u Zlína. Na festivalu vystupují především zahraniční rockové a metalové kapely. V roce 2005 se stal nejúspěšnějším festivalem v Česku.[2] V roce 2007 navštívilo festival přes 30 000 návštěvníků.[3] V roce 2016 byl festival vyprodán.[4] V roce 2017 dostal festival novou webovou prezentaci a byl taktéž vyprodán... dokonce měsíc před samotným zahájením. V roce 2022 se festival po dvou odkladech taktéž vyprodal.[5]",
+      "created_by": 1,
+      "type": "music",
+      "price": "3200.00",
+      "location": "Areál likérky Rudolf Jelínek, Vizovice",
+      "region": "ZL",
+      "image": "event_images/masters.jpg"
+    }
+  },
+  {
+    "model": "viewer.event",
+    "pk": 4,
+    "fields": {
+      "title": "Speed dating",
+      "start_date": "2024-08-09T16:41:00Z",
+      "end_date": "2024-08-09T22:42:00Z",
+      "description": "Seznamovací léto ve Žlutých lázních \r\nChcete se seznámit? Jde to i bez dlouhého dopisování. \r\nPřijďte na některou z mnoha seznamovacích akcí  a užijete si příjemný večer ve společnosti lidí, kteří právě někoho hledají.",
+      "created_by": 1,
+      "type": "free",
+      "price": "590.00",
+      "location": "Žluté lázně, Praha",
+      "region": "PR",
+      "image": "event_images/speed.jpg"
+    }
+  },
+  {
+    "model": "viewer.event",
+    "pk": 5,
+    "fields": {
+      "title": "Na Stojáka",
+      "start_date": "2024-10-18T17:43:00Z",
+      "end_date": "2024-10-18T20:43:00Z",
+      "description": "Originální česká stand-up comedy vyrazí v říjnu a listopadu na své unikátní turné k 20. narozeninám této show. V rámci tohoto turné čeká fanoušky skvělé zábavy a veselých historek 7 zastávek v českých městech s opravdu hvězdnou sestavou. Na každé ze zastávek vystoupí minimálně 8 komiků.",
+      "created_by": 1,
+      "type": "culture",
+      "price": "650.00",
+      "location": "DK Liberec, Liberec",
+      "region": "LI",
+      "image": "event_images/nastojaka.jpg"
+    }
+  },
+  {
+    "model": "viewer.event",
+    "pk": 6,
+    "fields": {
+      "title": "EURO 2024",
+      "start_date": "2024-06-14T15:00:00Z",
+      "end_date": "2024-07-14T22:00:00Z",
+      "description": "Svátek fotbalu je tady a vy u toho rozhodně nesmíte chybět!\r\n\r\nPřijďte sledovat fotbalové EURO 2024 do Beach baru a zažijte nezapomenutelnou atmosféru s přáteli a rodinou.\r\n\r\nČekají na vás napínavé zápasy, emoce, radost, napětí a společné fandění.\r\n\r\nK tomu všemu je pro vás připravena široká nabídka výborného jídla a pití, abyste si fotbalový svátek užili se vším všudy.\r\n\r\nZápasy promítáme dle programu ČT4 Sport.",
+      "created_by": 1,
+      "type": "Sport",
+      "price": "290.00",
+      "location": "Plzeňská hospoda",
+      "region": "PL",
+      "image": "event_images/euro3_mc2CeJO.jpg"
+    }
+  },
+  {
+    "model": "viewer.event",
+    "pk": 7,
+    "fields": {
+      "title": "Vánoční trhy - Olomouc",
+      "start_date": "2024-12-01T18:38:00Z",
+      "end_date": "2024-12-31T18:38:00Z",
+      "description": "Olomoucké vánoční trhy patří k těm nejhezčím nejen v Olomouci. Vychutnejte si pravou vánoční atmosféru od 18. listopadu až do 23. prosince 2023. Opět se můžete užít dřevěné městečko s desítkami stánků s tradičním sortimentem a bohatou nabídkou punčů.\r\nVánoční trhy jsou tradiční akce s neopakovatelnou atmosférou uprostřed historické Olomouce. Můžete se těšit vánoční kolotoč a na tradiční výrobky výrobky spojené s Vánocemi a zimou, které nabízí okolo 80 stánků. Nebude chybět ani vyhlídkové kolo na tržnici. \r\n\r\nPo čtyřech letech se na trhy opět vrací kluziště, které kromě bezplatného bruslení nabídne i řadu zajímavých akcí. Novinkou je punčová stezka -malý průvodce po oblíbených vánočních nápojích. Stejně jako loni je připravena vycházková trasa, na které je možno obdivovat jedinečné olomoucké památky (kašny, barokní sloupy, architekturu), vychutnat si neopakovatelnou atmosféru adventních trhů a pokochat se pohledem na historické jádro z několika vyhlídek. První je postavená na Horním náměstí a poskytne neobvyklý výhled přímo na trhy, druhá je z Radniční věže a třetí z 30 metrů vysokého vyhlídkového kola na tržnici.\r\n\r\nVánoční trhy v Olomouci vás doslova okouzlí. Patří mezi nejvyhlášenější v ČR. Historické jádro Olomouce nabízí nádherné kulisy pro vánoční trhy. V Olomouci se každý rok snaží navodit atmosféru pravých českých Vánoc. K tomu patří majestátný a krásně zdobený vánoční strom, nabídky tradičních řemeslných výrobků (řezbářské, kovářské i krejčovské práce), vystoupení folklórních souborů, divadlo a pestrý kulturní program. Ty olomoucké dokáží v lidech opravdu probudit sváteční atmosféru klidu a pohody. Hezkým zpestřením bude určitě i vánoční kino, které bude promítat mnohé už klasické vánoční filmy jako např. Pelíšky, S čerty nejsou žerty apod. Či již tradiční ledové kluziště, které se stało novodobou tradicí. \r\n\r\nProdávat se bude tradiční vánoční sortiment, dárkové předměty i řemeslné výrobky. Horní a Dolní náměstí opět provoní punč, perníky a gastronomické speciality.",
+      "created_by": 1,
+      "type": "free",
+      "price": "0.00",
+      "location": "Olomoucké náměstí",
+      "region": "OL",
+      "image": "event_images/wroclav.jpg"
+    }
+  },
+  {
+    "model": "viewer.event",
+    "pk": 8,
+    "fields": {
+      "title": "Mezinárodní filmový festival Karlovy Vary",
+      "start_date": "2024-06-28T18:37:00Z",
+      "end_date": "2024-08-01T18:37:00Z",
+      "description": "Mezinárodní filmový festival Karlovy Vary (zkratka MFF KV, anglicky KVIFF) je největší filmový festival v České republice zařazený do kategorie A (tj. nespecializovaný festival se soutěží celovečerních hraných filmů) spolu s festivaly v Cannes, Berlíně, Benátkách nebo Tokiu. Patří mezi nejstarší světové filmové přehlídky a je považován za nejdůležitější filmový festival ve střední a východní Evropě.[1]\r\n\r\nKoná se tradičně začátkem července a hlavním ústředím je Hotel Thermal v Karlových Varech v Karlovarském kraji. Každý rok je na festivalu promítáno více než 180 celovečerních filmů a několik desítek krátkých filmů z celého světa.[2] Tradičně se účastní světové filmové hvězdy, nejčastěji ze Spojených států.",
+      "created_by": 1,
+      "type": "culture",
+      "price": "1500.00",
+      "location": "Karlovy Vary",
+      "region": "KA",
+      "image": "event_images/filmovy.jpg"
+    }
+  },
+  {
+    "model": "viewer.event",
+    "pk": 9,
+    "fields": {
+      "title": "Tuning motor party",
+      "start_date": "2024-09-28T19:11:00Z",
+      "end_date": "2024-09-29T19:12:00Z",
+      "description": "Připravujeme poslední sraz roku 2024 Tuning Motor Party - Vyškov - setkání příznivců nadupaných rychlých kár, našlapaná páteční večerní party REFEW, KOUKR, RAPHAEL, DJ TDHS.\r\nDrifty FURT BOKEM !\r\nMůžete se těšit na:\r\n- Tuningové soutěže, Sprinty - ÚAMK - TMS o Mistra ČR 2024.\r\nVíce info na www.tuning motor sprint.cz, - Show & Shine Mothers SHOWCASE ,dB - Drag, DRIFTY FURT BOKEM !!!",
+      "created_by": 1,
+      "type": "sport",
+      "price": "700.00",
+      "location": "Letiště Vyškov, Vyškov",
+      "region": "JM",
+      "image": "event_images/tuning-motor-party-vyskov.jpg"
+    }
+  },
+  {
+    "model": "viewer.event",
+    "pk": 12,
+    "fields": {
+      "title": "OKTAGON 61",
+      "start_date": "2024-09-21T17:00:00Z",
+      "end_date": "2024-09-21T23:00:00Z",
+      "description": "Bomby jak Brno!\r\n\r\nMěsto bojových sportů a jedno z hlavních měst OKTAGONu, kde se odehrálo již 15 turnajů a řada významných momentů. Momentů, které ovlivnily vývoj celé organizace – korunovace šampionů, finále Výzev, turnaje Undergroundu i nezapomenutelné útočiště za covidu. 21. 9. 2024 přivezme show, která na tuty rozbuší srdce fanoušků na celou arénu! \r\n\r\nBrno a OKTAGON jsou neodmyslitelně spjaté. Domácí fanoušci si tak zaslouží něco speciálního! Energizující adrenalinovou show zaměřenou výhradně na domácí scénu a nejlepší brněnské bojovníky.\r\n\r\nMoravská metropole zažije comeback jednoho z nejlepších bojovníků, kteří se kdy objevili na česko-slovenské scéně, světové #43 Makhmuda Muradova.\r\n\r\nObávaný střelec a místní vagabund v jedné osobě Andrej „AK47“ Kalašnik se za brněnskými hradbami připravuje na nájezd „Řeckého císaře“ Palaiologose, který stejně jako Kalašnik ukončil Jungwirtha.\r\n\r\nBoxerský a kickboxerský šampion Vlado Lengál se vrací do pérové váhy proti sebevědomému Fryovi se všemi 5 výhrami v 1. kole. Zlomí Fry srdce českým fanouškům?\r\n\r\nVe svém 3. MMA zápase se představí další brněnský bojovník – elitní postojář „Ruchy“ Roušal.\r\n\r\nJsme po 2 letech zpět v Brně! Zažij OKTAGON 61 s tisícovkami fanoušků ve Winning Group Areně! Lístky právě v prodeji.",
+      "created_by": 1,
+      "type": "free",
+      "price": "890.00",
+      "location": "Winning Group Arena, Brno-město",
+      "region": "JM",
+      "image": "event_images/oktagon.webp"
+    }
+  },
+  {
+    "model": "viewer.comment",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "event": 2,
+      "content": "bude party",
+      "created_at": "2024-06-25T16:30:46.591Z"
+    }
+  },
+  {
+    "model": "viewer.comment",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "event": 1,
+      "content": "dam si hovezi",
+      "created_at": "2024-07-06T10:28:33.882Z"
+    }
+  },
+  {
+    "model": "viewer.comment",
+    "pk": 3,
+    "fields": {
+      "user": 2,
+      "event": 2,
+      "content": "Ahoj\r\n",
+      "created_at": "2024-07-08T15:55:07.813Z"
+    }
+  },
+  {
+    "model": "viewer.comment",
+    "pk": 4,
+    "fields": {
+      "user": 2,
+      "event": 4,
+      "content": "Ahoj\r\n",
+      "created_at": "2024-07-08T23:07:52.801Z"
+    }
+  },
+  {
+    "model": "viewer.comment",
+    "pk": 5,
+    "fields": {
+      "user": 2,
+      "event": 1,
+      "content": "dopsí",
+      "created_at": "2024-07-11T18:58:41.704Z"
+    }
+  },
+  {
+    "model": "viewer.comment",
+    "pk": 6,
+    "fields": {
+      "user": 3,
+      "event": 3,
+      "content": "Bylo to skvělé ! Příští rok určitě pojedu znovu ! :)",
+      "created_at": "2024-07-20T02:28:20.824Z"
+    }
+  },
+  {
+    "model": "viewer.registration",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "event": 3,
+      "registered_at": "2024-06-25T16:19:46.357Z"
+    }
+  },
+  {
+    "model": "viewer.registration",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "event": 2,
+      "registered_at": "2024-06-25T16:30:49.706Z"
+    }
+  },
+  {
+    "model": "viewer.registration",
+    "pk": 3,
+    "fields": {
+      "user": 1,
+      "event": 1,
+      "registered_at": "2024-06-26T16:41:41.881Z"
+    }
+  },
+  {
+    "model": "viewer.registration",
+    "pk": 4,
+    "fields": {
+      "user": 1,
+      "event": 5,
+      "registered_at": "2024-06-26T17:48:30.075Z"
+    }
+  },
+  {
+    "model": "viewer.registration",
+    "pk": 5,
+    "fields": {
+      "user": 1,
+      "event": 4,
+      "registered_at": "2024-07-02T18:12:33.897Z"
+    }
+  },
+  {
+    "model": "viewer.registration",
+    "pk": 6,
+    "fields": {
+      "user": 1,
+      "event": 8,
+      "registered_at": "2024-07-05T13:27:31.138Z"
+    }
+  },
+  {
+    "model": "viewer.registration",
+    "pk": 9,
+    "fields": {
+      "user": 2,
+      "event": 5,
+      "registered_at": "2024-07-08T22:51:25.106Z"
+    }
+  },
+  {
+    "model": "viewer.registration",
+    "pk": 10,
+    "fields": {
+      "user": 2,
+      "event": 7,
+      "registered_at": "2024-07-08T22:59:49.488Z"
+    }
+  },
+  {
+    "model": "viewer.registration",
+    "pk": 11,
+    "fields": {
+      "user": 2,
+      "event": 1,
+      "registered_at": "2024-07-09T16:03:05.900Z"
+    }
+  },
+  {
+    "model": "viewer.registration",
+    "pk": 12,
+    "fields": {
+      "user": 2,
+      "event": 2,
+      "registered_at": "2024-07-11T18:48:06.479Z"
+    }
+  },
+  {
+    "model": "viewer.registration",
+    "pk": 13,
+    "fields": {
+      "user": 1,
+      "event": 7,
+      "registered_at": "2024-07-20T11:19:56.564Z"
+    }
+  }
+]
