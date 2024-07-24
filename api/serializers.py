@@ -11,7 +11,7 @@ class EventSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class EventdetailSerializer(serializers.ModelSerializer):
+class EventDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event

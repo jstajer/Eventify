@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import mixins, generics
 
 import eventify
-from api.serializers import EventSerializer, EventdetailSerializer
+from api.serializers import EventSerializer, EventDetailSerializer
 from viewer.models import Event
 
 
@@ -18,10 +18,10 @@ class Events(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPI
         return self.create(request, *args, **kwargs)
 
 
-class Eventdetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
+class EventDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
                   mixins.DestroyModelMixin, generics.GenericAPIView):
     queryset = Event.objects.all()
-    serializer_class = EventdetailSerializer
+    serializer_class = EventDetailSerializer
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
