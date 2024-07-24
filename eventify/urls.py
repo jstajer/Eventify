@@ -22,7 +22,6 @@ urlpatterns = [
     path('create/', views.create_event, name='create_event'),
     path('region/<str:region>/', views.region_events, name='region_events'),
     path('contact/', views.contact, name='contact'),
-    path('contact/<int:id>/', views.contact_detail, name='contact_detail'),
     path('login/', auth_views.LoginView.as_view(
         template_name='login.html',
         authentication_form=EmailOrUsernameLoginForm

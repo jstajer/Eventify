@@ -3,25 +3,56 @@
 
 {% block content %}
 <h1>Events</h1>
-<form method="GET" action="{% url 'search_events' %}">
+<form method="GET" action="{% url 'search_events' %}" id="event-filter-form">
     <div class="form-row">
         <div class="col-md-3">
-            <input type="text" name="q" class="form-control" placeholder="Search events">
+            <input type="text" name="q" class="form-control" placeholder="Search events" value="{{ request.GET.q }}">
         </div>
         <div class="col-md-2">
             <label for="start_date" class="sr-only">From</label>
-            <input type="date" id="start_date" name="start_date" class="form-control" placeholder="Start date">
+            <input type="date" id="start_date" name="start_date" class="form-control" placeholder="Start date" value="{{ request.GET.start_date }}">
         </div>
         <div class="col-md-2">
             <label for="end_date" class="sr-only">To</label>
-            <input type="date" id="end_date" name="end_date" class="form-control" placeholder="End date">
+            <input type="date" id="end_date" name="end_date" class="form-control" placeholder="End date" value="{{ request.GET.end_date }}">
         </div>
         <div class="col-md-2">
-            <input type="text" name="event_type" class="form-control" placeholder="Event type">
+            <label for="event_type" class="sr-only">Event Type</label>
+            <select id="event_type" name="event_type" class="form-control">
+                <option value="">Select Event Type</option>
+                <option value="Food" {% if request.GET.event_type == 'Food' %}selected{% endif %}>Food</option>
+                <option value="Music" {% if request.GET.event_type == 'Music' %}selected{% endif %}>Music</option>
+                <option value="Sport" {% if request.GET.event_type == 'Sport' %}selected{% endif %}>Sport</option>
+                <option value="Culture" {% if request.GET.event_type == 'Culture' %}selected{% endif %}>Culture</option>
+                <option value="Wellness" {% if request.GET.event_type == 'Wellness' %}selected{% endif %}>Wellness</option>
+                <option value="Experiences" {% if request.GET.event_type == 'Experiences' %}selected{% endif %}>Experiences</option>
+                <option value="Nature" {% if request.GET.event_type == 'Nature' %}selected{% endif %}>Nature</option>
+                <option value="Free" {% if request.GET.event_type == 'Free' %}selected{% endif %}>Free</option>
+            </select>
         </div>
+
         <div class="col-md-2">
-            <input type="text" name="location" class="form-control" placeholder="Location">
+            <label for="event_region" class="sr-only">Event Region</label>
+            <select id="event_region" name="event_region" class="form-control">
+                <option value="">Select Event Region</option>
+                <option value="PR" {% if request.GET.event_region == 'PR' %}selected{% endif %}>Praha</option>
+                <option value="ST" {% if request.GET.event_region == 'ST' %}selected{% endif %}>Středočeský</option>
+                <option value="JC" {% if request.GET.event_region == 'JC' %}selected{% endif %}>Jihočeský</option>
+                <option value="PL" {% if request.GET.event_region == 'PL' %}selected{% endif %}>Plzeňský</option>
+                <option value="KA" {% if request.GET.event_region == 'KA' %}selected{% endif %}>Karlovarský</option>
+                <option value="US" {% if request.GET.event_region == 'US' %}selected{% endif %}>Ústecký</option>
+                <option value="LI" {% if request.GET.event_region == 'LI' %}selected{% endif %}>Liberecký</option>
+                <option value="KR" {% if request.GET.event_region == 'KR' %}selected{% endif %}>Královéhradecký</option>
+                <option value="PA" {% if request.GET.event_region == 'PA' %}selected{% endif %}>Pardubický</option>
+                <option value="VY" {% if request.GET.event_region == 'VY' %}selected{% endif %}>Vysočina</option>
+                <option value="JI" {% if request.GET.event_region == 'JI' %}selected{% endif %}>Jihomoravský</option>
+                <option value="OL" {% if request.GET.event_region == 'OL' %}selected{% endif %}>Olomoucký</option>
+                <option value="ZL" {% if request.GET.event_region == 'ZL' %}selected{% endif %}>Zlínský</option>
+                <option value="MO" {% if request.GET.event_region == 'MO' %}selected{% endif %}>Moravskoslezský</option>
+
+            </select>
         </div>
+
         <div class="col-md-1">
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
@@ -62,4 +93,5 @@
         </div>
     {% endif %}
 </div>
+
 {% endblock %}

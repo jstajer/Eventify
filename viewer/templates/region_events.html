@@ -3,7 +3,7 @@
 {% extends "viewer/base.html" %}
 
 {% block content %}
-<h1>Události v regionu {{ region }}</h1>
+<h1>Events in region {{ region }}</h1>
 {% if events %}
     <div class="row mt-4">
         {% for event in events %}
@@ -23,7 +23,7 @@
     </div>
 {% else %}
     <div class="alert alert-info" role="alert">
-        Bohužel v tomto regionu není aktuálně žádná událost.
+        Unfortunately, there is currently no event in this region
     </div>
 {% endif %}
 {% endblock %}
