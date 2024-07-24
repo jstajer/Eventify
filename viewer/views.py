@@ -43,14 +43,6 @@ def home(request):
     return render(request, 'home.html', {'events': events, 'form': form})
 
 
-class HomeListView(ListView):
-    model = Event
-    template_name = 'home.html'
-    context_object_name = 'events'
-    ordering = ['start_date']
-    paginate_by = 10
-
-
 @login_required
 def create_event(request):
     if request.method == 'POST':
@@ -71,8 +63,7 @@ def edit_event(request, event_id):
         if form.is_valid():
             form.save()
             return redirect('event_detail', event_id=event.id)
-    else:
-        form = EventForm(instance=event)
+    form = EventForm(instance=event)
     return render(request, 'viewer/event_detail.html', {
         'form': form,
         'event': event,
@@ -123,7 +114,7 @@ def search_events(request):
     start_date = request.GET.get('start_date')
     end_date = request.GET.get('end_date')
     event_type = request.GET.get('event_type')
-    location = request.GET.get('location')
+    event_region = request.GET.get('event_region')
     events = Event.objects.all()
     if query:
         events = events.filter(Q(title__icontains=query) | Q(description__icontains=query))
@@ -133,8 +124,8 @@ def search_events(request):
         events = events.filter(end_date__lte=end_date)
     if event_type:
         events = events.filter(type__icontains=event_type)  # Použití správného názvu pole
-    if location:
-        events = events.filter(location__icontains=location)
+    if event_region:
+        events = events.filter(region__icontains=event_region)
     return render(request, 'home.html', {'events': events})
 
 
@@ -159,17 +150,12 @@ def region_events(request, region):
     region_code = REGION_MAP.get(region_normalized)
 
     # Ladicí výstup
-    print(f"Region: {region}, Normalized: {region_normalized}, Code: {region_code}")
-
+    today = timezone.now().date()
     if region_code:
-        events = Event.objects.filter(region__iexact=region_code)
-    else:
-        events = Event.objects.none()
-
-    if events.exists():
+        events = Event.objects.filter(region__iexact=region_code).filter(end_date__gte=today)
         return render(request, 'region_events.html', {'events': events, 'region': region.title()})
-    else:
-        return render(request, 'region_events.html', {'events': [], 'region': region.title(), 'no_events': True})
+
+    return render(request, 'region_events.html', {'events': [], 'region': region.title(), 'no_events': True})
 
 
 def login(request):
@@ -179,8 +165,7 @@ def login(request):
             user = form.get_user()
             auth_login(request, user)
             return redirect('home')
-    else:
-        form = EmailOrUsernameLoginForm()
+    form = EmailOrUsernameLoginForm()
     return render(request, 'login.html', {'form': form})
 
 
@@ -191,36 +176,15 @@ def signup(request):
             user = form.save()
             auth_login(request, user)
             return redirect('home')
-    else:
-        form = CustomUserCreationForm()
+    form = CustomUserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
 
 def contact(request):
     contacts = [
-        {'id': 1, 'name': 'Tomáš Král', 'phone': '+420 731 311 943', 'email': 'kraltomas93@seznam.cz', 'instagram': 'https://instagram.com/tomas.kral', 'facebook': 'https://www.facebook.com/tomas.kral.397/', 'linkedin': 'https://www.linkedin.com/in/tom%C3%A1%C5%A1-kr%C3%A1l-a29451b4/', 'github': 'https://github.com/tomas-kral-repo'},
+        {'id': 1, 'name': 'Tomáš Král', 'phone': '+420 731 311 943', 'email': 'kraltomas93@seznam.cz', 'instagram': 'https://instagram.com/tomas.kral', 'facebook': 'https://www.facebook.com/tomas.kral.397/', 'linkedin': 'https://www.linkedin.com/in/tom%C3%A1%C5%A1-kr%C3%A1l-a29451b4/', 'github': 'https://github.com/kraltom93'},
         {'id': 2, 'name': 'Jiří Štajer', 'phone': '+420 601 573 908', 'email': 'jiristajer9@gmail.com', 'instagram': 'https://www.instagram.com/skillabbm', 'facebook': 'https://www.facebook.com/BbmSkilla/', 'linkedin': 'https://www.linkedin.com/in/ji%C5%99%C3%AD-%C5%A1tajer-07a936270/', 'github': 'https://github.com/jstajer'},
-        {'id': 3, 'name': 'Michal Maják', 'phone': '+420 774 858 566', 'email': 'michalmajak@centrum.cz', 'instagram': 'https://www.instagram.com/michal_majak1986/', 'facebook': 'https://www.facebook.com/MichalMajak86', 'linkedin': 'https://www.linkedin.com/in/michal-maj%C3%A1k-319b182a5/', 'github': 'https://github.com/michal-majak-repo'},
-        {'id': 4, 'name': 'Martin Havránek', 'phone': '+420 734 516 102', 'email': 'byll@centrum.cz', 'facebook': 'https://www.facebook.com/martin.havranek.18', 'linkedin': 'https://www.linkedin.com/in/martin-havránek-627316155/', 'github': 'https://github.com/martin-havranek-repo'},
+        {'id': 3, 'name': 'Michal Maják', 'phone': '+420 774 858 566', 'email': 'michalmajak@centrum.cz', 'instagram': 'https://www.instagram.com/michal_majak1986/', 'facebook': 'https://www.facebook.com/MichalMajak86', 'linkedin': 'https://www.linkedin.com/in/michal-maj%C3%A1k-319b182a5/', 'github': 'https://github.com/MichalMajak1986'},
+        {'id': 4, 'name': 'Martin Havránek', 'phone': '+420 734 516 102', 'email': 'byll@centrum.cz', 'facebook': 'https://www.facebook.com/martin.havranek.18', 'linkedin': 'https://www.linkedin.com/in/martin-havránek-627316155/', 'github': 'https://github.com/byllcz'},
     ]
     return render(request, 'contact.html', {'contacts': contacts})
-
-
-def contact_detail(request, id):
-    contacts = [
-        {'id': 1, 'name': 'Tomáš Král', 'phone': '+420 731 311 943', 'email': 'kraltomas93@seznam.cz',
-         'instagram': 'https://instagram.com/tomas.kral', 'facebook': 'https://www.facebook.com/tomas.kral.397/',
-         'linkedin': 'https://www.linkedin.com/in/tom%C3%A1%C5%A1-kr%C3%A1l-a29451b4/', 'github': 'https://github.com/tomas-kral-repo'},
-        {'id': 2, 'name': 'Jiří Štajer', 'phone': '+420 601 573 908', 'email': 'jiristajer9@gmail.com',
-         'instagram': 'https://www.instagram.com/skillabbm/', 'facebook': 'https://www.facebook.com/BbmSkilla',
-         'linkedin': 'https://www.linkedin.com/in/ji%C5%99%C3%AD-%C5%A1tajer-07a936270/', 'github': 'https://github.com/jstajer'},
-        {'id': 3, 'name': 'Michal Maják', 'phone': '+420 774 858 566', 'email': 'michalmajak@centrum.cz',
-         'instagram': 'https://www.instagram.com/michal_majak1986/',
-         'facebook': 'https://www.facebook.com/MichalMajak86',
-         'linkedin': 'https://www.linkedin.com/in/michal-maj%C3%A1k-319b182a5/', 'github': 'https://github.com/michal-majak-repo'},
-        {'id': 4, 'name': 'Martin Havránek', 'phone': '+420 734 516 102', 'email': 'byll@centrum.cz',
-         'facebook': 'https://www.facebook.com/martin.havranek.18',
-         'linkedin': 'https://www.linkedin.com/in/martin-havránek-627316155/', 'github': 'https://github.com/martin-havranek-repo'},
-    ]
-    contact = next((item for item in contacts if item["id"] == id), None)
-    return render(request, 'contact-detail.html', {'contact': contact})

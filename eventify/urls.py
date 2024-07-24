@@ -22,7 +22,6 @@ urlpatterns = [
     path('create/', views.create_event, name='create_event'),
     path('region/<str:region>/', views.region_events, name='region_events'),
     path('contact/', views.contact, name='contact'),
-    path('contact/<int:id>/', views.contact_detail, name='contact_detail'),
     path('login/', auth_views.LoginView.as_view(
         template_name='login.html',
         authentication_form=EmailOrUsernameLoginForm
@@ -35,7 +34,7 @@ urlpatterns = [
 
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/eventify/', api.views.Events.as_view()),
-    path('api/event/<pk>/', api.views.Eventdetail.as_view()),
+    path('api/event/<pk>/', api.views.EventDetail.as_view()),
 ]
 
 if settings.DEBUG:

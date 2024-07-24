@@ -18,13 +18,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_extensions',
 
+    'django_dump_load_utf8',
     'viewer',
     'api',
     ]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'graph_models': True,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,7 +66,7 @@ WSGI_APPLICATION = 'eventify.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3', # Databáze, vždy vkládat do gitignore
     }
 }
 

@@ -5,9 +5,7 @@ from viewer.constants import REGION_CHOICES, EVENT_TYPE_CHOICES
 
 
 class Event(models.Model):
-    title = models.CharField(
-        max_length=100,
-    )
+    title = models.CharField(max_length=100)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     description = models.TextField()
@@ -42,12 +40,3 @@ class Registration(models.Model):
 
 
 
-
-#TODO JIRKA, udelat readme projektu, poskladat kod a naucit se ho, er diagram, doplnit databazi,
-#TODO, kouknout na projekt podle zadani,, typy eventů, location, minulé eventy, procházející, budoucí
-#  uživatele doplnit, možná i nějakou jinou domovskou stránku udělat a pak mít events v liště, možná celá republika zpátky
-#  zeptat se Petra, jestli nám projde ty teplates, jestli je to v pořádku.
-
-#TODO   testy
-
-#TODO testování webových stránek
