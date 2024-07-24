@@ -1,3 +1,5 @@
+import time
+
 from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.common.by import By
@@ -32,30 +34,39 @@ class EventTestSelenium(StaticLiveServerTestCase):
 
         title_field = self.selenium.find_element(By.ID, "id_title")
         title_field.send_keys("Foo")
+        time.sleep(1)
 
         start_date_field = self.selenium.find_element(By.ID, "id_start_date")
         start_date_field.send_keys("12/12/2026 11:00")
+        time.sleep(1)
 
         end_date_field = self.selenium.find_element(By.ID, "id_end_date")
         end_date_field.send_keys("12/12/2027 15:00")
+        time.sleep(1)
 
         description_field = self.selenium.find_element(By.ID, "id_description")
         description_field.send_keys("My Description")
+        time.sleep(1)
 
         create_by_field = Select(self.selenium.find_element(By.ID, "id_created_by"))
         create_by_field.select_by_visible_text(self.user.username)
+        time.sleep(1)
 
         type_field = self.selenium.find_element(By.ID, "id_type")
-        type_field.send_keys("Cinema")
+        type_field.select_by_visible_text("Food")
+        time.sleep(1)
 
         price_field = self.selenium.find_element(By.ID, "id_price")
         price_field.send_keys("290.45")
+        time.sleep(1)
 
         location_field = self.selenium.find_element(By.ID, "id_location")
         location_field.send_keys("Praha 1")
+        time.sleep(1)
 
         region_field = Select(self.selenium.find_element(By.ID, "id_region"))
         region_field.select_by_visible_text("Praha")
+        time.sleep(1)
 
         submit_button = self.selenium.find_element(By.XPATH, "/html/body/div/form/button")
         submit_button.click()
