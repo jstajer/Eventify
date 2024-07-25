@@ -1,19 +1,28 @@
 # Eventify
-Eventify is a web application that allows users to search, view, and manage events. It provides a user-friendly interface for filtering events based on various criteria and offers detailed views of each event.
+
+Eventify is a web application for managing and registering for events. It allows users to search for events, register for them, and view details about each event.
+
 ## Features
-- **Event Search**: Users can search for events based on keywords, date range, event type, and region.
-- **Event Filters**: Advanced filtering options to narrow down search results.
-- **Event Details**: Detailed view of each event including title, description, date, and image.
-- **User Authentication**: Secure user registration and login
-- **Responsive Design**: Optimized for both desktop and mobile devices.
+- User registration and authentication
+- Event creation, editing, and deletion by admins
+- Event search and filtering
+- User event registration and unregistration
+- Comments on events
+
+## ER Diagram
+Below is the Entity-Relationship (ER) diagram for the Eventify application:
+![erd.png](erd.png)
+## Screenshots
+### Homepage
+![Homepage](images/home.png)
+![Homepage](images/home2.png)
+### Event Detail
+![Event Detail](images/event2.png)
+![Event Detail](images/event.png)
 ## Installation
-To get a local copy up and running, follow these steps:
-### Prerequisites
-- Python 3.12+
-- Django 4.2+
-- Virtual environment (optional but recommended)
-### Setup
+To install and run this project locally:
+
 1. Clone the repository:
-    ```sh
-    git clone https://github.com/jstajer/Eventify.git
-    cd eventify (edited) 
+   ```bash
+   git clone https://github.com/yourusername/eventify.git
+   cd eventify

@@ -3,7 +3,6 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
 import rest_framework
 from django.db.models import Q
 from api.views import *

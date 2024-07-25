@@ -13,24 +13,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login
 
 
-REGION_MAP = {
-    'praha': 'PR',
-    'moravskoslezský': 'MO',
-    'zlínský': 'ZL',
-    'liberecký': 'LI',
-    'plzeňský': 'PL',
-    'olomoucký': 'OL',
-    'karlovarský': 'KA',
-    'jihomoravský': 'JM',
-    "pardubický": "PA",
-    "královehradecký": "HK",
-    "ústecký": "US",
-    "vysočina": "VY",
-    "jihočeský": "JC",
-    "středočeský": "ST"
-}
-
-
 def home(request):
     form = EventFilterForm(request.GET or None)
     events = Event.objects.all()

@@ -35,10 +35,12 @@
 
             </ul>
             <ul class="navbar-nav ml-auto">
-                {% if user.is_authenticated %}
+                {% if perms.viewer.add_event %}
                 <li class="nav-item">
                     <a class="nav-link btn btn-success text-white" href="{% url 'create_event' %}">Create Event</a>
                 </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
                 <li class="nav-item">
                     <span class="nav-link">{{ user.email }}</span>
                 </li>

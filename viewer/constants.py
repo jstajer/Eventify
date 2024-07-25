@@ -26,3 +26,21 @@ EVENT_TYPE_CHOICES = [
     ('nature', 'Nature'),
     ('free', 'Free'),
 ]
+
+
+REGION_MAP = {
+    'praha': 'PR',
+    'moravskoslezský': 'MO',
+    'zlínský': 'ZL',
+    'liberecký': 'LI',
+    'plzeňský': 'PL',
+    'olomoucký': 'OL',
+    'karlovarský': 'KA',
+    'jihomoravský': 'JM',
+    "pardubický": "PA",
+    "královehradecký": "HK",
+    "ústecký": "US",
+    "vysočina": "VY",
+    "jihočeský": "JC",
+    "středočeský": "ST"
+}
