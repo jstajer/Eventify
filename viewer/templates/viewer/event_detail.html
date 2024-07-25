@@ -37,12 +37,16 @@
         {% endfor %}
     </ul>
 
+    {% if user.is_authenticated %}
     <h3>Add a Comment</h3>
     <form method="post" action="{% url 'event_detail' event.id %}">
         {% csrf_token %}
         <textarea name="comment_content" rows="4"></textarea><br>
         <button type="submit" class="btn btn-primary">Add Comment</button>
     </form>
+    {% else %}
+    <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to add a comment.</p>
+    {% endif %}
 
     <h2>Registrations</h2>
     <ul>
