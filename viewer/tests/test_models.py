@@ -26,7 +26,7 @@ class EventModelTest(TestCase):
             end_date=end_date,
             description="My Description",
             created_by=self.user,
-            type="Cinema",
+            type="food",
             price=290.45,
             location="Fórum Karlín",
             region="JM",

@@ -63,7 +63,8 @@ def edit_event(request, event_id):
         if form.is_valid():
             form.save()
             return redirect('event_detail', event_id=event.id)
-    form = EventForm(instance=event)
+    else:
+        form = EventForm(instance=event)
     return render(request, 'viewer/event_detail.html', {
         'form': form,
         'event': event,
@@ -165,7 +166,9 @@ def login(request):
             user = form.get_user()
             auth_login(request, user)
             return redirect('home')
-    form = EmailOrUsernameLoginForm()
+    else:
+        form = EmailOrUsernameLoginForm()
+
     return render(request, 'login.html', {'form': form})
 
 
@@ -176,7 +179,9 @@ def signup(request):
             user = form.save()
             auth_login(request, user)
             return redirect('home')
-    form = CustomUserCreationForm()
+    else:
+        form = CustomUserCreationForm()
+
     return render(request, 'signup.html', {'form': form})
 
 

@@ -18,13 +18,13 @@ class EventFormTest(TestCase):
             "end_date": datetime.now() + timedelta(days=5),
             "description": "My Description",
             "created_by": self.user,
-            "type": "Food",
+            "type": "food",
             "price": 290.45,
             "location": "Fórum Karlín",
             "region": "JM"
         })
 
-        self.assertTrue(form.is_valid())
+        self.assertTrue(form.is_valid(), form.errors)
 
     def test_create_event_missing_location(self):
         form = EventForm(data={
@@ -33,9 +33,9 @@ class EventFormTest(TestCase):
             "end_date": datetime.now() + timedelta(days=5),
             "description": "My Description",
             "created_by": self.user,
-            "type": "Food",
+            "type": "food",
             "price": 290.45,
             "region": "JM"
         })
 
-        self.assertTrue(form.is_valid())
+        self.assertTrue(form.is_valid(), form.errors)

@@ -11,8 +11,8 @@ class EventForm(forms.ModelForm):
         model = Event
         fields = '__all__'
         widgets = {
-            'start_date': forms.DateInput(attrs={'type': 'datetime-local'}),
-            'end_date': forms.DateInput(attrs={'type': 'datetime-local'}),
+            'start_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'end_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'region': forms.Select(choices=REGION_CHOICES),
             'type': forms.Select(choices=EVENT_TYPE_CHOICES),
         }
