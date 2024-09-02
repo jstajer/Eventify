@@ -1,7 +1,7 @@
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
 
-UserModel = get_user_model()
+UserModel = get_user_model() #Získává aktuální uživatelský model
 
 
 class EmailOrUsernameModelBackend(ModelBackend):
@@ -19,3 +19,5 @@ class EmailOrUsernameModelBackend(ModelBackend):
                 return
         if user.check_password(password) and self.user_can_authenticate(user):
             return user
+
+# Backend je potřeba přidat do nastavení autentizačních backendů v souboru
